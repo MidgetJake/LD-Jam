@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using System.Collections.Generic;
+using Game;
 
-namespace Controller {
+namespace Player {
     public class Controller : MonoBehaviour {
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed = 6.0f;
@@ -38,6 +40,8 @@ namespace Controller {
         private Quaternion m_CapturedRotation;
         
         public float gravityMultiplier = 1f;
+        public List<Tool> inventory = new List<Tool>();
+        public Tool activeTool;
 
         private void Start () {
             m_CharacterController = GetComponent<CharacterController>();
@@ -60,10 +64,42 @@ namespace Controller {
                 m_MoveDir.y = 0f;
             }
 
+            for (int i = 0; i < 10; ++i) {
+                if (Input.GetKeyDown("" + i)) {
+                    if (i == 0) {
+                        SetActiveItem(9);
+                    } else {
+                        SetActiveItem(i - 1);
+                    }
+                }
+            }
+            
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
+
+            if (CrossPlatformInputManager.GetButtonDown("Fire1") && activeTool != null) {
+                activeTool.UseItem();
+            }
+            
             RotateView();
         }
 
+        public void SetItemUsable(bool usable, string type, GameObject interactable) {
+            if (activeTool != null) {
+                activeTool.SetUsable(usable, type, interactable);
+            }
+        }
+        
+        private void SetActiveItem(int item) {
+            if (activeTool != null) {
+                activeTool.UnEquip();
+            }
+
+            if (item < inventory.Count) {
+                activeTool = inventory[item];
+                activeTool.Equip();
+            }
+        }
+        
         private void FixedUpdate() {
             float speed;
             GetInput(out speed);
@@ -182,8 +218,6 @@ namespace Controller {
 
             UpdateCursorLock();
         }
-    
-
 
         private void InternalLockUpdate() {
             if (Input.GetKeyUp(KeyCode.Escape)) {
@@ -208,6 +242,13 @@ namespace Controller {
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit) {
+            if (hit.transform.CompareTag("Tool")) {
+                Tool newTool = hit.transform.GetComponent<Tool>();
+                newTool.Pickup(transform.position);
+                hit.transform.SetParent(transform);
+                inventory.Add(newTool);
+            }
+            
             Rigidbody body = hit.collider.attachedRigidbody;
             //dont move the rigidbody if the character is on top of it
             if (m_CollisionFlags == CollisionFlags.Below) {

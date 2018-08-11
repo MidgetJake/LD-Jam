@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Player;
 
 public class PlayerStats : MonoBehaviour {
 	public float maxHealth = 100f;
@@ -42,7 +43,7 @@ public class PlayerStats : MonoBehaviour {
 		// Player Gravity state
 		// 1 = Normal gravity
 		// 0 = No gravity
-		m_Player.GetComponent<Controller.Controller>().gravityMultiplier = val;
+		m_Player.GetComponent<Controller>().gravityMultiplier = val;
 	}
 
 	public void ReduceHealth(float val) {
