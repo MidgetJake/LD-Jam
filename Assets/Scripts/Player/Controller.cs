@@ -21,6 +21,7 @@ namespace Player {
         [SerializeField] private Transform m_CameraAnchor;
         [SerializeField] private bool m_LockCursor = true;
         [SerializeField] private Vector2 m_RotationRange = new Vector2(90, 361);
+        [SerializeField] public bool m_CameraShake = false;
         
         private CharacterController m_CharacterController;
         private AudioSource m_AudioSource;
@@ -42,6 +43,10 @@ namespace Player {
         public float gravityMultiplier = 1f;
         public List<Tool> inventory = new List<Tool>();
         public Tool activeTool;
+        public float shakeAmount = 0.25f;
+        public float shakeTime = 5;
+        public float shakeTick = 5;
+        public float deadSectorPlayerDistance;
 
         private void Start () {
             m_CharacterController = GetComponent<CharacterController>();
@@ -125,6 +130,26 @@ namespace Player {
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
 
             ProgressStepCycle(speed);
+            
+            if (m_CameraShake) {
+                shakeAmount = (1-(deadSectorPlayerDistance / 100))-(shakeTick/10);
+
+                if (shakeAmount > 0.45f) {
+                    shakeAmount = 0.45f;
+                }
+                
+                if (shakeTick >= shakeTime || shakeAmount <= 0) {
+                    shakeAmount = 0;
+                    m_CameraShake = false;
+                    shakeTick = 0;
+                }
+                
+                m_Camera.transform.localPosition = Random.insideUnitSphere * shakeAmount;
+                shakeTick += 1*Time.deltaTime;
+            } else {
+                m_Camera.transform.localPosition = Vector3.zero;
+                shakeAmount = 0f;
+            }
         }
 
         private void PlayLandingSound() {

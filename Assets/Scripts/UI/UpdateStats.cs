@@ -21,12 +21,8 @@ namespace UI {
 				}
 			}
 
-			if (m_PlayerStats.playerHealth <= 50f) {
-				
-				m_BlackOut.color = new Color(0, 0, 0, m_Opacity);
-				m_Opacity += 0.5f * Time.deltaTime;
-
-			}
+			m_BlackOut.color = new Color(0, 0, 0, m_Opacity);
+			m_Opacity = 1 - (m_PlayerStats.playerHealth / 100);
 
 			m_OxygenBar.fillAmount = m_PlayerStats.playerOxygen / 100;
 			m_HealthBar.fillAmount = m_PlayerStats.playerHealth / 100;
