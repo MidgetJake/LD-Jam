@@ -28,6 +28,7 @@
           </e>
           <e p="Environment" t="Include">
             <e p="EnvironmentControl.cs" t="Include" />
+            <e p="SectorGeneration.cs" t="Include" />
           </e>
           <e p="PlayerStats.cs" t="Include" />
           <e p="UI" t="Include">
