@@ -20,5 +20,12 @@ namespace Environment {
 			player.outOfArea = false;
 			player.enteredSector = true;
 		}
+		
+		private void OnTriggerStay(Collider other) {
+			PlayerStats player = other.GetComponent<PlayerStats>();
+			if (!other.transform.CompareTag("Player") || !player) return;
+			player.enteredSector = true;
+			player.outOfArea = false;
+		}
 	}
 }

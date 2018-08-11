@@ -31,6 +31,7 @@ public class PlayerStats : MonoBehaviour {
 			SetGravity(0);
 			ReduceOxygen(0.25f);
 		} else {
+			enteredSector = false;
 			canRegenOxygen = playerOxygen < 100;
 			canRegenHealth = playerOxygen >= 100 && playerHealth < 100;
 			SetGravity(1);
