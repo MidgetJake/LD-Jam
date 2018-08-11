@@ -9,7 +9,6 @@
           <e p="Controller" t="Include">
             <e p="Controller.cs" t="Include" />
             <e p="CrossPlatformInput" t="Include">
-              <e p="CrossPlatformInputGuidelines.txt" t="Include" />
               <e p="Scripts" t="Include">
                 <e p="AxisTouchButton.cs" t="Include" />
                 <e p="ButtonHandler.cs" t="Include" />
@@ -26,6 +25,13 @@
                 <e p="VirtualInput.cs" t="Include" />
               </e>
             </e>
+          </e>
+          <e p="Environment" t="Include">
+            <e p="EnvironmentControl.cs" t="Include" />
+          </e>
+          <e p="PlayerStats.cs" t="Include" />
+          <e p="UI" t="Include">
+            <e p="UpdateStats.cs" t="Include" />
           </e>
         </e>
       </e>
