@@ -117,11 +117,12 @@ namespace Environment {
 						//deadEnd.transform.position = child.position;
 						deadEnd.transform.localRotation = Quaternion.Euler(90, rotation, 0);
 						deadEnd.transform.position = transform.position + ((child.position - transform.position));
-						if (m_IsCorner && child.name == "EastPoint") {
+						transform.GetComponent<Sector>().deadEnds.Add(deadEnd);
+						/*if (m_IsCorner && child.name == "EastPoint") {
 							deadEnd.transform.SetParent(m_CornerPoint);
 						} else {
 							deadEnd.transform.SetParent(child);
-						}
+						}*/
 					}
 				} else {
 					print("Hitting Itself");
@@ -141,11 +142,11 @@ namespace Environment {
 				//deadEnd.transform.position = child.position;
 				deadEnd.transform.localRotation = Quaternion.Euler(90, rotation, 0);
 				deadEnd.transform.position = transform.position + ((child.position - transform.position));
-				if (m_IsCorner && child.name == "EastPoint") {
+				/*if (m_IsCorner && child.name == "EastPoint") {
 					deadEnd.transform.SetParent(m_CornerPoint);
 				} else {
 					deadEnd.transform.SetParent(child);
-				}
+				}*/
 			}
 		}
 

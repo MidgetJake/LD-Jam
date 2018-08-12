@@ -72,7 +72,7 @@ namespace Environment {
 			}
 			
 			if (!isSafe) {
-				float test = Vector3.Distance(other.transform.position, GameObject.FindGameObjectWithTag("Suction").transform.position);
+				/*float test = Vector3.Distance(other.transform.position, GameObject.FindGameObjectWithTag("Suction").transform.position);
 				print(test);
 				if (test > 5) {
 					//other.transform.position = Vector3.MoveTowards(transform.position, gameObject.transform.position, step);//
@@ -81,7 +81,7 @@ namespace Environment {
 
 				if (test < 0.25f) {
 					sucked = true;
-				}
+				}*/
 			}
 		}
 
