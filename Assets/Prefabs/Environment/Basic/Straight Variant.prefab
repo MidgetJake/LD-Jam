@@ -114,6 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827a963dda719c64a8b11f7a92d3384b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedIndex: -1
+  selfRotate: 0
   points:
   - {fileID: 4911415166709051529}
   - {fileID: 3640838287751014435}
@@ -124,7 +126,39 @@ MonoBehaviour:
   - {fileID: 791541579706244525}
   - {fileID: 7960627322421841512, guid: ed690ed7db08a71438aeb88f9228f542, type: 3}
   m_ConnectionHolder: {fileID: 7176009423049343683}
-  attachedIndex: -1
+--- !u!114 &999194920019261604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7394097975852099412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab119171d66396d489089fa3c3ed7482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GameController: {fileID: 0}
+  m_GasArea: {fileID: 0}
+  isSafe: 1
+  destructionTime: 0
+  DIEDIEDIE: 0
+  goingToDie: 0
+--- !u!64 &6624875910895826392
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7394097975852099412}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: b095200a56406774f81cf4a603e19dac, type: 3}
 --- !u!1 &7575938559690399125
 GameObject:
   m_ObjectHideFlags: 0

@@ -131,8 +131,9 @@ GameObject:
   - component: {fileID: 6374081143353391545}
   - component: {fileID: 6374081143354718617}
   - component: {fileID: 6374081143355816793}
-  - component: {fileID: 6374081143777864471}
   - component: {fileID: 6995264240858855990}
+  - component: {fileID: 1342888645957741578}
+  - component: {fileID: 660430847}
   m_Layer: 0
   m_Name: Circleish Variant
   m_TagString: Untagged
@@ -203,21 +204,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &6374081143777864471
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6374081143353877913}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: caede4a660c077c4ebd454a133c0c24d, type: 3}
 --- !u!114 &6995264240858855990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827a963dda719c64a8b11f7a92d3384b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedIndex: -1
+  selfRotate: 0
   points:
   - {fileID: 3913097477291044163}
   - {fileID: 7805934930965414691}
@@ -242,8 +230,37 @@ MonoBehaviour:
   - {fileID: 791541579706244525, guid: d44cb90c52d813a4ba0818354117ebd5, type: 3}
   - {fileID: 7960627322421841512, guid: ed690ed7db08a71438aeb88f9228f542, type: 3}
   m_ConnectionHolder: {fileID: 6589780470740246176}
-  attachedIndex: -1
-  selfRotate: 0
+--- !u!65 &1342888645957741578
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6374081143353877913}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.16000004, z: 0.045926332}
+  m_Center: {x: 0, y: -0.000000003725291, z: -0.022963166}
+--- !u!114 &660430847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6374081143353877913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab119171d66396d489089fa3c3ed7482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GameController: {fileID: 0}
+  m_GasArea: {fileID: 0}
+  isSafe: 1
+  destructionTime: 0
+  DIEDIEDIE: 0
+  goingToDie: 0
 --- !u!1 &7593659199364410374
 GameObject:
   m_ObjectHideFlags: 0

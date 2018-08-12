@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 950594586888435251}
   - component: {fileID: 2710716003213524140}
   - component: {fileID: 7960627322421841512}
+  - component: {fileID: 1755311578287847608}
   m_Layer: 0
   m_Name: TJunction Variant
   m_TagString: Untagged
@@ -217,7 +218,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: ca4a973201e937143a7217d9454ec57e, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 6b99a80675e6a0c428068c0b968dc731, type: 3}
 --- !u!114 &7960627322421841512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +231,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827a963dda719c64a8b11f7a92d3384b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedIndex: -1
+  selfRotate: 0
   points:
   - {fileID: 3233144227285085421}
   - {fileID: 6841915044977838908}
@@ -241,7 +244,24 @@ MonoBehaviour:
   - {fileID: 791541579706244525, guid: d44cb90c52d813a4ba0818354117ebd5, type: 3}
   - {fileID: 7960627322421841512}
   m_ConnectionHolder: {fileID: 1492450008862002787}
-  attachedIndex: -1
+--- !u!114 &1755311578287847608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7268559155327754017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab119171d66396d489089fa3c3ed7482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GameController: {fileID: 0}
+  m_GasArea: {fileID: 0}
+  isSafe: 1
+  destructionTime: 0
+  DIEDIEDIE: 0
+  goingToDie: 0
 --- !u!1 &8767444841874972414
 GameObject:
   m_ObjectHideFlags: 0
