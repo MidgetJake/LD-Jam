@@ -210,8 +210,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3254d84ead7e3e4a8817951d76b7090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSafe: 0
-  sucked: 0
+  isSafe: 1
+  isSealed: 1
+  oxygen: 100
+  hasOxygen: 1
+  masterPlayer: {fileID: 0}
 --- !u!65 &4517196261465794306
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -363,11 +366,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab119171d66396d489089fa3c3ed7482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_GasArea: {fileID: 0}
+  Gas: {fileID: 5568350226079001147}
   isSafe: 1
   destructionTime: 0
   DIEDIEDIE: 0
   goingToDie: 0
+  dead: 0
+  SuckerCube: {fileID: 3519023764646282376, guid: 10610bc4aca258043b7ab146616a9e9b,
+    type: 3}
 --- !u!1 &7593659199364410374
 GameObject:
   m_ObjectHideFlags: 0

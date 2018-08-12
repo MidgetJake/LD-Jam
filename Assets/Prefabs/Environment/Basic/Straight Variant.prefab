@@ -195,8 +195,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3254d84ead7e3e4a8817951d76b7090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSafe: 0
-  sucked: 0
+  isSafe: 1
+  isSealed: 1
+  oxygen: 100
+  hasOxygen: 1
+  masterPlayer: {fileID: 0}
 --- !u!1 &7394097975852099412 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 532fd62b33559c54a9c663484ae42cf3,
@@ -262,11 +265,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab119171d66396d489089fa3c3ed7482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_GasArea: {fileID: 0}
+  Gas: {fileID: 4840372260655452221}
   isSafe: 1
   destructionTime: 0
   DIEDIEDIE: 0
   goingToDie: 0
+  dead: 0
+  SuckerCube: {fileID: 3519023764646282376, guid: 10610bc4aca258043b7ab146616a9e9b,
+    type: 3}
 --- !u!1 &7575938559690399125
 GameObject:
   m_ObjectHideFlags: 0

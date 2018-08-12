@@ -42,6 +42,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2263156145971216749}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &2744367292651319594
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2263156145971185613}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 385e7a366feab824ca072063e546af82, type: 3}
 --- !u!114 &3746338247306369662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,11 +69,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab119171d66396d489089fa3c3ed7482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_GasArea: {fileID: 0}
+  Gas: {fileID: 5873343823322943676}
   isSafe: 1
   destructionTime: 0
   DIEDIEDIE: 0
   goingToDie: 0
+  dead: 0
+  SuckerCube: {fileID: 3519023764646282376, guid: 10610bc4aca258043b7ab146616a9e9b,
+    type: 3}
 --- !u!114 &8921969684772405062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,21 +105,6 @@ MonoBehaviour:
   m_DeadEndWall: {fileID: 9087384947269940965, guid: 053b8f78f2d915b498926e88e1432a5d,
     type: 3}
   m_ConnectionHolder: {fileID: 2392254404672818864}
---- !u!64 &2744367292651319594
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2263156145971185613}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 385e7a366feab824ca072063e546af82, type: 3}
 --- !u!1 &3382931320774477894
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,8 +300,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3254d84ead7e3e4a8817951d76b7090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSafe: 0
-  sucked: 0
+  isSafe: 1
+  isSealed: 1
+  oxygen: 100
+  hasOxygen: 1
+  masterPlayer: {fileID: 0}
 --- !u!1 &8234136692512433749
 GameObject:
   m_ObjectHideFlags: 0

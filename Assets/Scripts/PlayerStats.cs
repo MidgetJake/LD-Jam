@@ -10,6 +10,7 @@ public class PlayerStats : MonoBehaviour {
 	public float healthRegen = 5f;
 	public bool canRegenOxygen;
 	public bool canRegenHealth;
+	public int currentSuctionPathNum;
 	
 	public bool outOfArea = false;
 	public bool enteredSector = false;
@@ -65,7 +66,6 @@ public class PlayerStats : MonoBehaviour {
 		}
 		if (canRegenOxygen) {
 			playerOxygen = Mathf.Clamp(playerOxygen + oxygenRegen, 0f, maxOxygen);
-			
 		}
 	}
 }
