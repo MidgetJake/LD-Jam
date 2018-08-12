@@ -10,6 +10,7 @@ namespace Environment {
 		public List<Transform> points = new List<Transform>();
 		
 		[SerializeField] private List<SectorGenerator> m_SectorList = new List<SectorGenerator>();
+		[SerializeField] private GameObject m_DeadEndWall;
 		[SerializeField] private Transform m_ConnectionHolder;
 		
 		private Dictionary<string, float> m_RotateValues = new Dictionary<string, float>();
@@ -71,6 +72,9 @@ namespace Environment {
 							parentSectorData.attachedSide = "Unknown";
 							hit.collider.GetComponent<Sector>().AddSection(parentSectorData);
 							m_HasCast = true;
+						} else {
+							print("DeadEnd");
+							Instantiate(m_DeadEndWall, testPosition, gameObject.transform.rotation);
 						}
 
 						/*if (m_CreationAttempts < 5) {

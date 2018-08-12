@@ -246,6 +246,8 @@ MonoBehaviour:
   - {fileID: 8921969684772405062, guid: 745e1f02727240a46b252adc5c9ea2b4, type: 3}
   - {fileID: 791541579706244525}
   - {fileID: 7960627322421841512, guid: ed690ed7db08a71438aeb88f9228f542, type: 3}
+  m_DeadEndWall: {fileID: 9087384947269940965, guid: 053b8f78f2d915b498926e88e1432a5d,
+    type: 3}
   m_ConnectionHolder: {fileID: 7176009423049343683}
 --- !u!114 &6190347142708848623
 MonoBehaviour:
@@ -259,10 +261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab119171d66396d489089fa3c3ed7482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_GameController: {fileID: 0}
   m_GasArea: {fileID: 0}
   isSafe: 1
-  m_DestructionTime: 0
+  destructionTime: 0
   DIEDIEDIE: 0
   goingToDie: 0
 --- !u!1 &7575938559690399125

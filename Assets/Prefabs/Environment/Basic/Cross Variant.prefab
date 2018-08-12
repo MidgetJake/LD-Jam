@@ -42,6 +42,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2263156145971216749}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3746338247306369662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2263156145971185613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab119171d66396d489089fa3c3ed7482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GasArea: {fileID: 0}
+  isSafe: 1
+  destructionTime: 0
+  DIEDIEDIE: 0
+  goingToDie: 0
 --- !u!114 &8921969684772405062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,23 +84,9 @@ MonoBehaviour:
   - {fileID: 8921969684772405062}
   - {fileID: 791541579706244525, guid: d44cb90c52d813a4ba0818354117ebd5, type: 3}
   - {fileID: 7960627322421841512, guid: ed690ed7db08a71438aeb88f9228f542, type: 3}
+  m_DeadEndWall: {fileID: 9087384947269940965, guid: 053b8f78f2d915b498926e88e1432a5d,
+    type: 3}
   m_ConnectionHolder: {fileID: 2392254404672818864}
---- !u!114 &3746338247306369662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2263156145971185613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab119171d66396d489089fa3c3ed7482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GameController: {fileID: 0}
-  m_DestructionTime: 0
-  DIEDIEDIE: 0
-  goingToDie: 0
 --- !u!1 &3382931320774477894
 GameObject:
   m_ObjectHideFlags: 0
