@@ -9,8 +9,16 @@ namespace Environment {
 		public float oxygen = 100;
 		public bool hasOxygen = true;
 		public PlayerStats masterPlayer;
+		public bool sucked = false;
+		
+		private GameObject topTarget;
 
 		private void Update() {
+			if (Vector3.Distance(masterPlayer.transform.position, topTarget.transform.position) < 3) {
+				sucked = true;
+			}
+			
+
 			if (!isSafe && !isSealed) {
 				if (masterPlayer) {
 					if (oxygen > 0) {
@@ -65,7 +73,8 @@ namespace Environment {
 			if (isSafe && hasOxygen) {
 				player.enteredSector = true;
 				player.outOfArea = false;
-				
+				sucked = false;
+
 			} else {
 				player.enteredSector = false;
 				player.outOfArea = true;
@@ -73,19 +82,32 @@ namespace Environment {
 			}
 
 			if (!isSafe) {
-				GameObject topTarget;
+				
 				for (var test = 0; test < GameObject.FindGameObjectsWithTag("Suction").Length; test++) {
 					GameObject target = GameObject.FindGameObjectsWithTag("Suction")[test];
-					if (Physics.Linecast(masterPlayer.transform.position, target.transform.position)) {
- 
+					
+					int layerMask = 1 << 2;
+					
+					if (!Physics.Linecast(masterPlayer.transform.position, target.transform.position, layerMask)) {
 						print("YES");
- 
-					} else {
-						print("NOOOO");
+						if (Vector3.Distance(masterPlayer.transform.position, target.transform.position) < 3) {
+							sucked = true;
+						} else {
+							topTarget = target;
+							if (!sucked) {
+								StartCoroutine(MovePieceTowards(other, GameObject.FindGameObjectWithTag("Suction").transform.position, 5f / 10));
+							}
+						}
+						
 					}
 				}
-				
-				
+			}
+		}
+		
+		private IEnumerator MovePieceTowards(Collider piece, Vector3 end, float speed) {
+			while (piece.transform.position != end) {
+				piece.transform.position = Vector3.MoveTowards(piece.transform.position, end, speed * Time.deltaTime);
+				yield return null;
 			}
 		}
 	}
