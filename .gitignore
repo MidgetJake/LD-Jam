@@ -37,3 +37,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 .idea/
+*.xml
+.idea/.idea.LD-Jam/.idea/workspace.xml
