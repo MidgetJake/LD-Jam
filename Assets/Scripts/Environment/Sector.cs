@@ -56,7 +56,7 @@ namespace Environment {
 				}
 				
 				if (destructionTime <= 0 && !dead) {
-                    
+					m_GasStats.isOpen = true;
 					GetComponent<Renderer>().enabled = false;
 					GetComponent<MeshCollider>().enabled = false;
 					foreach (MeshRenderer sideLight in m_LightList) {
@@ -102,6 +102,7 @@ namespace Environment {
 
 			isSafe = false;
 			m_GasStats.isSafe = false;
+			m_GasStats.isSealed = false;
 			foreach (SectorData sect in attachedSectors) {
 				if (!sect.isSealed && sect.attachedSector.isSafe) {
 					sect.attachedSector.InitWarning();

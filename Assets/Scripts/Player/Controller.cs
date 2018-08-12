@@ -198,7 +198,7 @@ namespace Player {
         }
 
         private void GetInput(out float speed) {
-            if (CanMove) {
+//            if (CanMove) {
                 // Read input
                 float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
                 float vertical = CrossPlatformInputManager.GetAxis("Vertical");
@@ -218,9 +218,9 @@ namespace Player {
                 if (m_Input.sqrMagnitude > 1) {
                     m_Input.Normalize();
                 }   
-            } else {
+            /*} else {
                 speed = m_WalkSpeed;
-            }
+            }*/
         }
 
         private void RotateView() {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngineInternal;
 
 namespace Environment {
 	public class EnvironmentControl : MonoBehaviour {
@@ -10,16 +11,31 @@ namespace Environment {
 		public bool hasOxygen = true;
 		public PlayerStats masterPlayer;
 		public bool sucked = false;
+		public bool isOpen;
 		
 		private GameObject topTarget;
 
-		private void Update() {
+		private void LateUpdate() {
 			if (topTarget) {
 				if (Vector3.Distance(masterPlayer.transform.position, topTarget.transform.position) < 3) {
 					sucked = true;
 				}
 			}
-			
+
+			if (isOpen) {
+				if (masterPlayer) {
+					RaycastHit hit;
+					Vector3 startPoint = transform.position;
+					startPoint.y -= 3f;
+					Vector3 playerDirection = (masterPlayer.transform.position - startPoint).normalized;
+					if (Physics.Raycast(startPoint, playerDirection, out hit)) {
+						Debug.DrawLine(startPoint, hit.point, Color.cyan);
+						if (hit.collider.CompareTag("Player")) {
+							masterPlayer.suckerList.Add(this);
+						}
+					}
+				}
+			}
 
 			if (!isSafe && !isSealed) {
 				if (masterPlayer) {
@@ -97,7 +113,7 @@ namespace Environment {
 						} else {
 							topTarget = target;
 							if (!sucked) {
-								StartCoroutine(MovePieceTowards(other, GameObject.FindGameObjectWithTag("Suction").transform.position, 5f / 10));
+								//StartCoroutine(MovePieceTowards(other, GameObject.FindGameObjectWithTag("Suction").transform.position, 5f / 10));
 							}
 						}
 						

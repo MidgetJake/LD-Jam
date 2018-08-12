@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Player;
-using UnityEngineInternal;
+using System.Collections.Generic;
+using Environment;
 
 public class PlayerStats : MonoBehaviour {
 	public float maxHealth = 100f;
@@ -12,16 +14,40 @@ public class PlayerStats : MonoBehaviour {
 	public bool canRegenOxygen;
 	public bool canRegenHealth;
 	public int currentSuctionPathNum;
+	public List<EnvironmentControl> suckerList = new List<EnvironmentControl>();
+	public EnvironmentControl closestSucker;
+	public float closestDist = 100000f;
 	
 	public bool outOfArea = false;
 	public bool enteredSector = false;
 	
 	private float m_TickTime;
-	
+	private bool m_Outside;
+	private Vector3 m_FloatingDirection;
+	private float m_FloatingSpeed;
 
 	[SerializeField] private GameObject m_Player;
 
 	private void Update() {
+		if (closestSucker) {
+			RaycastHit hit;
+			Vector3 startPoint = closestSucker.transform.position;
+			startPoint.y -= 3f;
+			if (Physics.Raycast(startPoint, (transform.position - startPoint).normalized, out hit)) {
+				if (!hit.collider.CompareTag("Player")) {
+					closestSucker = null;
+				}
+			}
+		}
+
+		foreach (EnvironmentControl sucker in suckerList) {
+			float newDist = Vector3.Distance(sucker.transform.position, transform.position);
+			if ( newDist < closestDist) {
+				closestDist = newDist;
+				closestSucker = sucker;
+			}
+		}
+		suckerList = new List<EnvironmentControl>();
 		m_TickTime += Time.deltaTime;
 		if (m_TickTime >= 1f) {
 			Regen();
@@ -40,8 +66,24 @@ public class PlayerStats : MonoBehaviour {
 			SetGravity(1);
 		}
 	}
-	
-	public void SetGravity(float val) {
+
+	private void FixedUpdate() {
+		if (m_Outside) {
+			transform.position = Vector3.MoveTowards(transform.position, transform.position + (m_FloatingDirection * 10), m_FloatingSpeed * Time.deltaTime);
+		}
+		
+		if (closestSucker && !m_Outside) {
+			float speed = Mathf.Clamp(300 / Vector3.Distance(closestSucker.transform.position, transform.position), 3, 300 );
+			transform.position = Vector3.MoveTowards(transform.position, closestSucker.transform.position, speed * Time.deltaTime);
+			if (Vector3.Distance(transform.position, closestSucker.transform.position) <= 2.5 && !m_Outside) {
+				m_FloatingDirection = (closestSucker.transform.position - transform.position).normalized;
+				m_FloatingSpeed = speed;
+				m_Outside = true;
+			}
+		}
+	}
+
+	public void SetGravity(int val) {
 		// Player Gravity state
 		// 1 = Normal gravity
 		// 0 = No gravity
