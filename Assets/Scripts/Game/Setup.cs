@@ -26,6 +26,7 @@ namespace Game {
 		}
 
 		private void ReGenerate() {
+			print("Try");
 			foreach (Transform child in EnvironmentSettings.topParent) {
 				Destroy(child.gameObject);
 			}

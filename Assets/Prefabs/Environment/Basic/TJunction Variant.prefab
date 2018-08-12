@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 5079384952553102107}
   - component: {fileID: 7974771414350547418}
   - component: {fileID: 7828195085435963865}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TJunction Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSafe: 0
+  sucked: 0
 --- !u!1 &5463669646441614037
 GameObject:
   m_ObjectHideFlags: 0

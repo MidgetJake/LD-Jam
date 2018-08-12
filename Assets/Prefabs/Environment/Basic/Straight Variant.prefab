@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 4840372260657647357}
   - component: {fileID: 7422055851696994716}
   - component: {fileID: 8503038416197675009}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Straight Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSafe: 0
+  sucked: 0
 --- !u!1 &7394097975852099412 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 532fd62b33559c54a9c663484ae42cf3,

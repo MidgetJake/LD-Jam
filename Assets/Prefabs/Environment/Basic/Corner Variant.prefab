@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 768245961284997373}
   - component: {fileID: 7717171606700093538}
   - component: {fileID: 5583515290031236664}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Corner Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSafe: 0
+  sucked: 0
 --- !u!65 &5583515290031236664
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 9195046342070178929}
   - component: {fileID: 477097503076485519}
   - component: {fileID: 4517196261465794306}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Circleish Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,6 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSafe: 0
+  sucked: 0
 --- !u!65 &4517196261465794306
 BoxCollider:
   m_ObjectHideFlags: 0

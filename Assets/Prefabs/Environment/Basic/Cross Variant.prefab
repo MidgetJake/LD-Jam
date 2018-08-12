@@ -87,6 +87,21 @@ MonoBehaviour:
   m_DeadEndWall: {fileID: 9087384947269940965, guid: 053b8f78f2d915b498926e88e1432a5d,
     type: 3}
   m_ConnectionHolder: {fileID: 2392254404672818864}
+--- !u!64 &2744367292651319594
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2263156145971185613}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 385e7a366feab824ca072063e546af82, type: 3}
 --- !u!1 &3382931320774477894
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +205,7 @@ GameObject:
   - component: {fileID: 5873343823320747644}
   - component: {fileID: 3518973147544294759}
   - component: {fileID: 724084954116666738}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cross Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,6 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSafe: 0
+  sucked: 0
 --- !u!1 &8234136692512433749
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,6 +37,71 @@ namespace Environment {
 			}
 		}
 
+		public void GenerateEnds() {
+			print("Searching for ends");
+			int count = -1;
+			foreach (Transform child in points) {
+				count++;
+				if (count == attachedIndex) continue;
+				m_CreationAttempts = 0;
+				GenerateSectorEnd(child);
+			}
+		}
+
+		private void GenerateSectorEnd(Transform child) {
+			Vector3 newPosition = transform.position + ((transform.position - child.position) * 2);
+			Vector3 top = new Vector3(newPosition.x , newPosition.y + 0.2f, newPosition.z);
+			RaycastHit hit;
+			Debug.DrawLine(top, top + Vector3.down, Color.green, 100f);
+			if (Physics.Raycast(top, Vector3.down, out hit)) {
+				if (hit.collider.transform.position != transform.position) {
+					Vector3 testPosition = transform.position + ((transform.position - child.position) * 1.1f);
+					testPosition.y += 0.2f;
+					Debug.DrawLine(testPosition, testPosition + Vector3.down, Color.red, 100f);
+					if (Physics.Raycast(testPosition, Vector3.down, out hit)) {
+						SectorData sectorData = new SectorData();
+						sectorData.attachedSector = hit.collider.GetComponent<Sector>();
+						sectorData.isSealed = false;
+						sectorData.attachedSide = child.name;
+						transform.GetComponent<Sector>().attachedSectors.Add(sectorData);
+
+						SectorData parentSectorData = new SectorData();
+						parentSectorData.attachedSector = transform.GetComponent<Sector>();
+						parentSectorData.isSealed = false;
+						parentSectorData.attachedSide = "Unknown";
+						hit.collider.GetComponent<Sector>().AddSection(parentSectorData);
+						m_HasCast = true;
+					} else {
+						float rotation;
+						if (child.name == "NorthPoint" || child.name == "SouthPoint") {
+							rotation = 0;
+						} else {
+							rotation = 90;
+						}
+
+						rotation += selfRotate;
+						
+						GameObject deadEnd = Instantiate(m_DeadEndWall);
+						deadEnd.transform.position = child.position;
+						deadEnd.transform.rotation = Quaternion.Euler(deadEnd.transform.eulerAngles.x, rotation, deadEnd.transform.eulerAngles.z);
+					}
+				}
+			} else {
+				print("Dead end here");
+				float rotation;
+				if (child.name == "NorthPoint" || child.name == "SouthPoint") {
+					rotation = 90;
+				} else {
+					rotation = 0;
+				}
+						
+				rotation += selfRotate;
+				GameObject deadEnd = Instantiate(m_DeadEndWall);
+				deadEnd.transform.position = child.position;
+				deadEnd.transform.rotation = Quaternion.Euler(deadEnd.transform.eulerAngles.x, rotation, deadEnd.transform.eulerAngles.z);
+			}
+		}
+
 		private void GenerateSector(Transform child) {
 			m_CreationAttempts++;
 			bool valid = true;
@@ -52,6 +117,7 @@ namespace Environment {
 			//if (!m_HasCast) {
 				Vector3 top = new Vector3(newPosition.x , newPosition.y + 0.5f, newPosition.z);
 				RaycastHit hit;
+				Debug.DrawLine(top, top + Vector3.down, Color.blue, 100f);
 				if (Physics.Raycast(top, Vector3.down, out hit)) {
 					if (hit.collider.transform.position != transform.position) {
 						Vector3 testPosition = transform.position + ((transform.position - child.position) * 1.1f);
@@ -59,7 +125,6 @@ namespace Environment {
 						Debug.DrawLine(testPosition, testPosition + Vector3.down, Color.red, 100f);
 						if (Physics.Raycast(testPosition, Vector3.down, out hit)) {
 							valid = false;
-							print("One here already!");
 							SectorData sectorData = new SectorData();
 							sectorData.attachedSector = hit.collider.GetComponent<Sector>();
 							sectorData.isSealed = false;
@@ -73,8 +138,19 @@ namespace Environment {
 							hit.collider.GetComponent<Sector>().AddSection(parentSectorData);
 							m_HasCast = true;
 						} else {
-							print("DeadEnd");
-							Instantiate(m_DeadEndWall, testPosition, gameObject.transform.rotation);
+							print("");
+							float rotation;
+							if (child.name == "NorthPoint" || child.name == "SouthPoint") {
+								rotation = 0;
+							} else {
+								rotation = 90;
+							}
+
+							rotation += selfRotate;
+						
+							GameObject deadEnd = Instantiate(m_DeadEndWall);
+							deadEnd.transform.position = child.position;
+							deadEnd.transform.rotation = Quaternion.Euler(deadEnd.transform.eulerAngles.x, rotation, deadEnd.transform.eulerAngles.z);
 						}
 
 						/*if (m_CreationAttempts < 5) {
@@ -117,6 +193,8 @@ namespace Environment {
 				
 					if (EnvironmentSettings.passCount < EnvironmentSettings.generationPasses) {
 						nextSector.Generate();
+					} else {
+						nextSector.GenerateEnds();
 					}
 				}
 			//}
