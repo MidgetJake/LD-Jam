@@ -85,7 +85,7 @@ namespace Environment {
 			}
 			
 			goingToDie = true;
-			destructionTime = Random.Range(5, 5);
+			destructionTime = Random.Range(5, 5); // TODO - CHANGE THIS TO A HIGH NUMBER (TIME IT TAKES FOR IT TO BE DESTROYED)
 			m_GameController.Play_DestructionWarning();
 		}
 

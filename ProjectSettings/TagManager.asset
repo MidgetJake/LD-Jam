@@ -11,6 +11,8 @@ TagManager:
   - MainController
   - Suction
   - Gas
+  - ExplosionControl
+  - DoorSeal
   layers:
   - Default
   - TransparentFX

@@ -47,16 +47,71 @@ namespace Player {
         public float shakeTime = 5;
         public float shakeTick = 5;
         public float deadSectorPlayerDistance;
-        public bool CanMove;
+        public bool canMove;
+        public List<GameObject> doorSealList = new List<GameObject>();
+        public GameObject closestSeal;
 
         private void Start () {
             m_CharacterController = GetComponent<CharacterController>();
             m_AudioSource = GetComponent<AudioSource>();
             m_CameraRotation = m_CameraAnchor.localRotation;
         }
-	
+        
+        
         // Update is called once per frame
         void Update () {
+
+            if (Input.GetMouseButtonDown(0)) {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+ 
+                if(Physics.Raycast (ray, out hit)) {
+                    if(hit.transform.CompareTag("DoorSeal")) {
+                        Transform door = hit.transform;
+                        closestSeal = null;
+
+                        doorSealList = new List<GameObject>(GameObject.FindGameObjectsWithTag("DoorSeal"));
+                        foreach (GameObject selectedDoor in doorSealList) {
+                            if (Vector3.Distance(door.transform.position, selectedDoor.transform.position) < 1.5f) {
+                                closestSeal = selectedDoor;
+                                break;
+                            }
+                        }
+
+                        bool doorMesh = door.GetComponent<MeshRenderer>().enabled;
+                        bool doorBoxCol = door.GetComponent<BoxCollider>().isTrigger;
+                        bool closestMeshDoor = closestSeal.GetComponent<MeshRenderer>().enabled;
+                        bool closestBoxColDoor = closestSeal.GetComponent<BoxCollider>().isTrigger;
+
+                        if (doorMesh) {
+                            door.GetComponent<MeshRenderer>().enabled = false;
+                            closestSeal.GetComponent<MeshRenderer>().enabled = false;
+                        } else {
+                            door.GetComponent<MeshRenderer>().enabled = true;
+                            closestSeal.GetComponent<MeshRenderer>().enabled = true;
+                        }
+
+                        if (doorBoxCol) {
+                            doorBoxCol = door.GetComponent<BoxCollider>().isTrigger = false;
+                            closestSeal.GetComponent<BoxCollider>().isTrigger = false;
+                        } else {
+                            doorBoxCol = door.GetComponent<BoxCollider>().isTrigger = true;
+                            closestSeal.GetComponent<BoxCollider>().isTrigger = true;
+                        }
+
+                        
+
+                        print(door.GetComponent<MeshRenderer>().enabled);
+                        print(closestSeal.GetComponent<BoxCollider>().isTrigger);
+
+                        
+                        Debug.Log ("This is a door");
+                    } else {
+                        Debug.Log ("OTHER");                
+                    }
+                }
+            }
+            
             if (!m_Jump) {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
@@ -198,7 +253,9 @@ namespace Player {
         }
 
         private void GetInput(out float speed) {
+
 //            if (CanMove) {
+
                 // Read input
                 float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
                 float vertical = CrossPlatformInputManager.GetAxis("Vertical");

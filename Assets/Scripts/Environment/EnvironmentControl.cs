@@ -6,18 +6,18 @@ using UnityEngineInternal;
 namespace Environment {
 	public class EnvironmentControl : MonoBehaviour {
 		public bool isSafe = true;
-		public bool isSealed = true;
+		public bool isSealed;
 		public float oxygen = 100;
 		public bool hasOxygen = true;
 		public PlayerStats masterPlayer;
 		public bool sucked = false;
 		public bool isOpen;
 		
-		private GameObject topTarget;
-
+		private GameObject m_TopTarget;
+		
 		private void LateUpdate() {
-			if (topTarget) {
-				if (Vector3.Distance(masterPlayer.transform.position, topTarget.transform.position) < 3) {
+			if (m_TopTarget) {
+				if (Vector3.Distance(masterPlayer.transform.position, m_TopTarget.transform.position) < 3) {
 					sucked = true;
 				}
 			}
@@ -92,7 +92,6 @@ namespace Environment {
 				player.enteredSector = true;
 				player.outOfArea = false;
 				sucked = false;
-
 			} else {
 				player.enteredSector = false;
 				player.outOfArea = true;
@@ -100,7 +99,6 @@ namespace Environment {
 			}
 			
 			if (!isSafe) {
-				
 				for (var test = 0; test < GameObject.FindGameObjectsWithTag("Suction").Length; test++) {
 					GameObject target = GameObject.FindGameObjectsWithTag("Suction")[test];
 					
@@ -111,9 +109,11 @@ namespace Environment {
 						if (Vector3.Distance(masterPlayer.transform.position, target.transform.position) < 3) {
 							sucked = true;
 						} else {
-							topTarget = target;
+							m_TopTarget = target;
 							if (!sucked) {
+
 								//StartCoroutine(MovePieceTowards(other, GameObject.FindGameObjectWithTag("Suction").transform.position, 5f / 10));
+
 							}
 						}
 						

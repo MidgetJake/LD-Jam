@@ -90,9 +90,9 @@ public class PlayerStats : MonoBehaviour {
 		m_Player.GetComponent<Controller>().gravityMultiplier = val;
 
 		if (val == 1) {
-			m_Player.GetComponent<Controller>().CanMove = true;
+			m_Player.GetComponent<Controller>().canMove = true;
 		} else {
-			m_Player.GetComponent<Controller>().CanMove = false;
+			m_Player.GetComponent<Controller>().canMove = false;
 		}
 	}
 
