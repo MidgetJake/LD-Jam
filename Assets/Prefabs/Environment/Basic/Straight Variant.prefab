@@ -253,6 +253,11 @@ MonoBehaviour:
   m_DeadEndWall: {fileID: 9087384947269940965, guid: 053b8f78f2d915b498926e88e1432a5d,
     type: 3}
   m_ConnectionHolder: {fileID: 7176009423049343683}
+  m_CornerPoint: {fileID: 0}
+  m_EastSwap: {fileID: 0}
+  m_WestSwap: {fileID: 0}
+  m_NorthSwap: {fileID: 3640838287751014435}
+  m_SouthSwap: {fileID: 4911415166709051529}
 --- !u!114 &6190347142708848623
 MonoBehaviour:
   m_ObjectHideFlags: 0
