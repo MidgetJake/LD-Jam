@@ -9,6 +9,8 @@ namespace Environment {
 		public static int generationPasses = 3;
 		public static int passCount = 0;
 		public static Transform topParent;
+		public static int sectorCount = 0;
+		public static int maxSectors = 25;
 
 		public static void Generate() {
 			sectorPoints.Add(Vector3.zero);

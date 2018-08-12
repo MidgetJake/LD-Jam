@@ -42,6 +42,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2263156145971216749}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &2744367292651319594
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2263156145971185613}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 385e7a366feab824ca072063e546af82, type: 3}
 --- !u!114 &3746338247306369662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,21 +102,11 @@ MonoBehaviour:
   m_DeadEndWall: {fileID: 9087384947269940965, guid: 053b8f78f2d915b498926e88e1432a5d,
     type: 3}
   m_ConnectionHolder: {fileID: 2392254404672818864}
---- !u!64 &2744367292651319594
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2263156145971185613}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 385e7a366feab824ca072063e546af82, type: 3}
+  m_CornerPoint: {fileID: 0}
+  m_EastSwap: {fileID: 6214485572600225180}
+  m_WestSwap: {fileID: 2243950845629395485}
+  m_NorthSwap: {fileID: 181984604565229168}
+  m_SouthSwap: {fileID: 1818305039983560848}
 --- !u!1 &3382931320774477894
 GameObject:
   m_ObjectHideFlags: 0
