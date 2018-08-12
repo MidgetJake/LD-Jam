@@ -24,13 +24,13 @@ namespace Environment {
 		
 		public List<SectorData> attachedSectors = new List<SectorData>();
 		public bool isSafe = true;
-		public int suctionPathNum;
 		public float destructionTime;
 		public List<GameObject> deadEnds = new List<GameObject>();
 		
 		public bool DIEDIEDIE = false;
 		public bool goingToDie = false;
 		public bool dead = false;	
+		[SerializeField] private GameObject SuckerCube;	
 
 		private void Start() {
 			m_GameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<MainController>();
@@ -51,7 +51,7 @@ namespace Environment {
 				}
 				
 				if (destructionTime <= 0 && !dead) {
-					StartCoroutine(DestroySector(0));
+					StartCoroutine(DestroySector());
 					dead = true;
 				}
 			}
@@ -63,7 +63,7 @@ namespace Environment {
 			}
 			
 			goingToDie = true;
-			destructionTime = Random.Range(15, 15);
+			destructionTime = Random.Range(5, 5);
 			m_GameController.Play_DestructionWarning();
 		}
 
@@ -77,7 +77,7 @@ namespace Environment {
 			foreach (MeshRenderer cornerLight in m_LightList) {
 				cornerLight.GetComponent<Renderer>().material = m_DeadMaterial;
 			}
-			suctionPathNum = pathNumber + 1;
+
 			isSafe = false;
 			m_GasStats.isSafe = false;
 			foreach (SectorData sect in attachedSectors) {
@@ -85,14 +85,23 @@ namespace Environment {
 					sect.attachedSector.InitWarning();
 				}
 			}
+
 			yield return new WaitForSeconds(2.5f);
+		}
+
+		public IEnumerator DestroySector() {
+			isSafe = false;
+			m_GasStats.isSafe = false;
+			m_GasStats.isSealed = false;
+			yield return new WaitForSeconds(1f);
 			foreach (SectorData sect in attachedSectors) {
 				if (!sect.isSealed && sect.attachedSector.isSafe) {
-					StartCoroutine(sect.attachedSector.DestroySector(suctionPathNum));
+					StartCoroutine(sect.attachedSector.DestroySector());
 				}
 			}
 
-			//gameObject.SetActive(false); // TODO - FIND A WAY TO KILL SECTOR
+			gameObject.active = false;
+			Instantiate(SuckerCube, gameObject.transform.position, gameObject.transform.rotation);
 		}
 
 		public void AddSection(SectorData newSector) {

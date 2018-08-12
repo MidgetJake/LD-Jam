@@ -11,7 +11,7 @@ namespace Player {
         [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten = 0.8f;
         [SerializeField] private float m_JumpSpeed = 4f;
         [SerializeField] private float m_StickToGroundForce = 1f;
-        [SerializeField] private float m_StepInterval = 5f;
+        public float m_StepInterval = 5f;
         [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;
@@ -47,6 +47,7 @@ namespace Player {
         public float shakeTime = 5;
         public float shakeTick = 5;
         public float deadSectorPlayerDistance;
+        public bool CanMove;
 
         private void Start () {
             m_CharacterController = GetComponent<CharacterController>();
@@ -106,30 +107,35 @@ namespace Player {
         }
         
         private void FixedUpdate() {
+            
             float speed;
             GetInput(out speed);
-            // always move along the camera forward as it is the direction that it being aimed at
-            Vector3 desiredMove = m_Jumping ? m_AirMoveCache : m_CameraAnchor.forward * m_Input.y + m_CameraAnchor.right * m_Input.x;
-
-            m_MoveDir.x = desiredMove.x * speed;
-            m_MoveDir.z = desiredMove.z * speed;
-
-            if (m_CharacterController.isGrounded) {
-                m_MoveDir.y = -m_StickToGroundForce;
-
-                if (m_Jump) {
-                    m_MoveDir.y = m_JumpSpeed;
-                    m_AirMoveCache = desiredMove;
-                    PlayJumpSound();
-                    m_Jump = false;
-                    m_Jumping = true;
+            
+            if (CanMove) {
+                // always move along the camera forward as it is the direction that it being aimed at
+                Vector3 desiredMove = m_Jumping ? m_AirMoveCache : m_CameraAnchor.forward * m_Input.y + m_CameraAnchor.right * m_Input.x;
+    
+                m_MoveDir.x = desiredMove.x * speed;
+                m_MoveDir.z = desiredMove.z * speed;
+    
+                if (m_CharacterController.isGrounded) {
+                    m_MoveDir.y = -m_StickToGroundForce;
+    
+                    if (m_Jump) {
+                        m_MoveDir.y = m_JumpSpeed;
+                        m_AirMoveCache = desiredMove;
+                        PlayJumpSound();
+                        m_Jump = false;
+                        m_Jumping = true;
+                    }
+                } else {
+                    m_MoveDir += Physics.gravity * gravityMultiplier * Time.fixedDeltaTime;
                 }
-            } else {
-                m_MoveDir += Physics.gravity * gravityMultiplier * Time.fixedDeltaTime;
+                m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
+                
+               
+                ProgressStepCycle(speed);
             }
-            m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
-
-            ProgressStepCycle(speed);
             
             if (m_CameraShake) {
                 shakeAmount = (1-(deadSectorPlayerDistance / 100))-(shakeTick/10);

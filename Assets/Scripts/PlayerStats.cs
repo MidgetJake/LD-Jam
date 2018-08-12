@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Player;
+using UnityEngineInternal;
 
 public class PlayerStats : MonoBehaviour {
 	public float maxHealth = 100f;
@@ -10,6 +11,7 @@ public class PlayerStats : MonoBehaviour {
 	public float healthRegen = 5f;
 	public bool canRegenOxygen;
 	public bool canRegenHealth;
+	public int currentSuctionPathNum;
 	
 	public bool outOfArea = false;
 	public bool enteredSector = false;
@@ -44,6 +46,12 @@ public class PlayerStats : MonoBehaviour {
 		// 1 = Normal gravity
 		// 0 = No gravity
 		m_Player.GetComponent<Controller>().gravityMultiplier = val;
+
+		if (val == 1) {
+			m_Player.GetComponent<Controller>().CanMove = true;
+		} else {
+			m_Player.GetComponent<Controller>().CanMove = false;
+		}
 	}
 
 	public void ReduceHealth(float val) {
@@ -65,7 +73,6 @@ public class PlayerStats : MonoBehaviour {
 		}
 		if (canRegenOxygen) {
 			playerOxygen = Mathf.Clamp(playerOxygen + oxygenRegen, 0f, maxOxygen);
-			
 		}
 	}
 }
