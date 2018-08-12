@@ -10,6 +10,7 @@ TagManager:
   - AttachConnector
   - MainController
   - Suction
+  - Gas
   layers:
   - Default
   - TransparentFX
