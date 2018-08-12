@@ -2,6 +2,7 @@
 using Game;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Analytics;
 
 namespace Environment {
 
@@ -12,20 +13,26 @@ namespace Environment {
 	}
 	
 	public class Sector : MonoBehaviour {
-		[SerializeField] private GameObject m_GasArea;
+		
+		[SerializeField] private GameObject Gas;
+		private EnvironmentControl GasStats;
+	
 		private MainController m_GameController;
 		
 		public List<SectorData> attachedSectors = new List<SectorData>();
 		public bool isSafe = true;
+		public int suctionPathNum;
 		public float destructionTime;
 		
 		public bool DIEDIEDIE = false;
 		public bool goingToDie = false;
+		public bool dead = false;	
 
 		private void Start() {
 			m_GameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<MainController>();
+			GasStats = Gas.GetComponent<EnvironmentControl>();
 		}
-
+	
 		private void Update() {
 			if (DIEDIEDIE) {
 				DIEDIEDIE = false;
@@ -39,8 +46,9 @@ namespace Environment {
 					m_GameController.Play_Destruction(gameObject);
 				}
 				
-				if (destructionTime <= 0) {
-					StartCoroutine(DestroySector());
+				if (destructionTime <= 0 && !dead) {
+					StartCoroutine(DestroySector(0));
+					dead = true;
 				}
 			}
 		}
@@ -51,12 +59,14 @@ namespace Environment {
 			m_GameController.Play_DestructionWarning();
 		}
 
-		public IEnumerator DestroySector() {
+		public IEnumerator DestroySector(int pathNumber) {
+			suctionPathNum = pathNumber + 1;
 			isSafe = false;
+			GasStats.isSafe = false;
 			yield return new WaitForSeconds(1f);
 			foreach (SectorData sect in attachedSectors) {
 				if (!sect.isSealed && sect.attachedSector.isSafe) {
-					StartCoroutine(sect.attachedSector.DestroySector());
+					StartCoroutine(sect.attachedSector.DestroySector(suctionPathNum));
 				}
 			}
 

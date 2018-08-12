@@ -148,13 +148,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &938370831 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6995264240858855990, guid: 0cc8d7e3638cb7f4d911d7ff84a18cf1,
-    type: 3}
-  m_PrefabInstance: {fileID: 938370830}
-  m_PrefabAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 827a963dda719c64a8b11f7a92d3384b, type: 3}
 --- !u!1 &796325149
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +444,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e81b9a9bce7c4f645ab6d0553f77e8d7, type: 3}
   - {fileID: 8300000, guid: 2f1d7bf7b657d9741ad8af5ebccd3aca, type: 3}
   - {fileID: 8300000, guid: 54866d85b4987f248844095b8def7b0f, type: 3}
-  DeathClock: 10
+  DeathClock: 1000
   DeathTick: 0
   DeadSector: {fileID: 0}
 --- !u!82 &1369989953
@@ -654,6 +647,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSafe: 0
+  sucked: 0
+  oxygen: 100
+  hasOxygen: 1
 --- !u!1 &1714703443
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +754,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canUse: 0
+--- !u!114 &938370831 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6995264240858855990, guid: 0cc8d7e3638cb7f4d911d7ff84a18cf1,
+    type: 3}
+  m_PrefabInstance: {fileID: 938370830}
+  m_PrefabAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 827a963dda719c64a8b11f7a92d3384b, type: 3}
 --- !u!29 &1
 OcclusionCullingSettings:
   m_ObjectHideFlags: 0
