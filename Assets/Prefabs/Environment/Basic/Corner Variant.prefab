@@ -253,10 +253,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSafe: 0
-  sucked: 0
+  isSealed: 1
   oxygen: 100
   hasOxygen: 1
   masterPlayer: {fileID: 0}
+  sucked: 0
 --- !u!65 &5583515290031236664
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -430,12 +431,14 @@ MonoBehaviour:
   - {fileID: 6683622569493575180}
   - {fileID: 532961969003481268}
   isSafe: 1
-  suctionPathNum: 0
   destructionTime: 0
   deadEnds: []
   DIEDIEDIE: 0
   goingToDie: 0
   dead: 0
+  m_SuckerCube: {fileID: 3519023764646282376, guid: 10610bc4aca258043b7ab146616a9e9b,
+    type: 3}
+  m_Explosion: {fileID: 191186, guid: 079954accd64b32419ec069129c81273, type: 3}
 --- !u!1001 &2158950538279990745
 PrefabInstance:
   m_ObjectHideFlags: 0

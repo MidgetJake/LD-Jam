@@ -30,7 +30,10 @@ namespace Environment {
 		public bool DIEDIEDIE = false;
 		public bool goingToDie = false;
 		public bool dead = false;	
-		[SerializeField] private GameObject SuckerCube;	
+		[SerializeField] private GameObject m_SuckerCube;	
+		[SerializeField] private GameObject m_Explosion;	
+		private GameObject TmpExpl;	
+		private GameObject ExplParent;	
 
 		private void Start() {
 			m_GameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<MainController>();
@@ -46,11 +49,24 @@ namespace Environment {
 			if (goingToDie) {
 				destructionTime -= Time.deltaTime;
 
-				if (destructionTime <= 1.5f) {
+				if (destructionTime <= 1.5f && !dead) {
 					m_GameController.Play_Destruction(gameObject);
+					TmpExpl = Instantiate(m_Explosion, gameObject.transform.position, gameObject.transform.rotation);
+					TmpExpl.transform.SetParent(GameObject.FindGameObjectWithTag("ExplosionControl").transform);
 				}
 				
 				if (destructionTime <= 0 && !dead) {
+                    
+					GetComponent<Renderer>().enabled = false;
+					GetComponent<MeshCollider>().enabled = false;
+					foreach (MeshRenderer sideLight in m_LightList) {
+						sideLight.gameObject.SetActive(false);
+					}
+
+					foreach (GameObject end in deadEnds) {
+						end.SetActive(false);
+					}
+                    
 					StartCoroutine(DestroySector());
 					dead = true;
 				}
@@ -60,6 +76,12 @@ namespace Environment {
 		public void InitiateCountDown() {
 			foreach (MeshRenderer cornerLight in m_LightList) {
 				cornerLight.GetComponent<Renderer>().material = m_WarningMaterial;
+			}
+
+			if (GameObject.FindGameObjectWithTag("ExplosionControl").transform.childCount > 0) {
+				for (var i = 0; i < GameObject.FindGameObjectWithTag("ExplosionControl").transform.childCount; i++) {
+					Destroy(GameObject.FindGameObjectWithTag("ExplosionControl").transform.GetChild(i).transform.gameObject);
+				}
 			}
 			
 			goingToDie = true;
@@ -72,8 +94,8 @@ namespace Environment {
 				cornerLight.GetComponent<Renderer>().material = m_WarningMaterial;
 			}
 		}
-
-		public IEnumerator DestroySector(int pathNumber) {
+			
+		public IEnumerator DestroySector() {
 			foreach (MeshRenderer cornerLight in m_LightList) {
 				cornerLight.GetComponent<Renderer>().material = m_DeadMaterial;
 			}
@@ -87,21 +109,13 @@ namespace Environment {
 			}
 
 			yield return new WaitForSeconds(2.5f);
-		}
-
-		public IEnumerator DestroySector() {
-			isSafe = false;
-			m_GasStats.isSafe = false;
-			m_GasStats.isSealed = false;
-			yield return new WaitForSeconds(1f);
+		
 			foreach (SectorData sect in attachedSectors) {
 				if (!sect.isSealed && sect.attachedSector.isSafe) {
 					StartCoroutine(sect.attachedSector.DestroySector());
 				}
 			}
-
-			gameObject.active = false;
-			Instantiate(SuckerCube, gameObject.transform.position, gameObject.transform.rotation);
+			Instantiate(m_SuckerCube, gameObject.transform.position, gameObject.transform.rotation);
 		}
 
 		public void AddSection(SectorData newSector) {

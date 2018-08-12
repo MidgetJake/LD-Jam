@@ -142,6 +142,7 @@ namespace Environment {
 				//deadEnd.transform.position = child.position;
 				deadEnd.transform.localRotation = Quaternion.Euler(90, rotation, 0);
 				deadEnd.transform.position = transform.position + ((child.position - transform.position));
+				transform.GetComponent<Sector>().deadEnds.Add(deadEnd);
 				/*if (m_IsCorner && child.name == "EastPoint") {
 					deadEnd.transform.SetParent(m_CornerPoint);
 				} else {

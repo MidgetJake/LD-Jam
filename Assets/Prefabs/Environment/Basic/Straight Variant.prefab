@@ -281,6 +281,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+  sucked: 0
 --- !u!1 &7394097975852099412 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 532fd62b33559c54a9c663484ae42cf3,
@@ -365,6 +366,9 @@ MonoBehaviour:
   DIEDIEDIE: 0
   goingToDie: 0
   dead: 0
+  m_SuckerCube: {fileID: 3519023764646282376, guid: 10610bc4aca258043b7ab146616a9e9b,
+    type: 3}
+  m_Explosion: {fileID: 191186, guid: 079954accd64b32419ec069129c81273, type: 3}
 --- !u!1 &7575938559690399125
 GameObject:
   m_ObjectHideFlags: 0

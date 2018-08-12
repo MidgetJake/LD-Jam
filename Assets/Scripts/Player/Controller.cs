@@ -111,31 +111,31 @@ namespace Player {
             float speed;
             GetInput(out speed);
             
-            if (CanMove) {
-                // always move along the camera forward as it is the direction that it being aimed at
-                Vector3 desiredMove = m_Jumping ? m_AirMoveCache : m_CameraAnchor.forward * m_Input.y + m_CameraAnchor.right * m_Input.x;
-    
-                m_MoveDir.x = desiredMove.x * speed;
-                m_MoveDir.z = desiredMove.z * speed;
-    
-                if (m_CharacterController.isGrounded) {
-                    m_MoveDir.y = -m_StickToGroundForce;
-    
-                    if (m_Jump) {
-                        m_MoveDir.y = m_JumpSpeed;
-                        m_AirMoveCache = desiredMove;
-                        PlayJumpSound();
-                        m_Jump = false;
-                        m_Jumping = true;
-                    }
-                } else {
-                    m_MoveDir += Physics.gravity * gravityMultiplier * Time.fixedDeltaTime;
+        
+            // always move along the camera forward as it is the direction that it being aimed at
+            Vector3 desiredMove = m_Jumping ? m_AirMoveCache : m_CameraAnchor.forward * m_Input.y + m_CameraAnchor.right * m_Input.x;
+
+            m_MoveDir.x = desiredMove.x * speed;
+            m_MoveDir.z = desiredMove.z * speed;
+
+            if (m_CharacterController.isGrounded) {
+                m_MoveDir.y = -m_StickToGroundForce;
+
+                if (m_Jump) {
+                    m_MoveDir.y = m_JumpSpeed;
+                    m_AirMoveCache = desiredMove;
+                    PlayJumpSound();
+                    m_Jump = false;
+                    m_Jumping = true;
                 }
-                m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
-                
-               
-                ProgressStepCycle(speed);
+            } else {
+                m_MoveDir += Physics.gravity * gravityMultiplier * Time.fixedDeltaTime;
             }
+            m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
+            
+           
+            ProgressStepCycle(speed);
+           
             
             if (m_CameraShake) {
                 shakeAmount = (1-(deadSectorPlayerDistance / 100))-(shakeTick/10);
@@ -198,24 +198,28 @@ namespace Player {
         }
 
         private void GetInput(out float speed) {
-            // Read input
-            float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
-            float vertical = CrossPlatformInputManager.GetAxis("Vertical");
+            if (CanMove) {
+                // Read input
+                float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
+                float vertical = CrossPlatformInputManager.GetAxis("Vertical");
 
-            bool waswalking = m_IsWalking;
+                bool waswalking = m_IsWalking;
 
-            // set the desired speed to be walking or running
-            speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
-            m_Input = new Vector2(horizontal, vertical);
-            if(m_Input.x + m_Input.y > 0 || m_Input.x + m_Input.y < 0) {
-                m_Moving = true;
+                // set the desired speed to be walking or running
+                speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
+                m_Input = new Vector2(horizontal, vertical);
+                if(m_Input.x + m_Input.y > 0 || m_Input.x + m_Input.y < 0) {
+                    m_Moving = true;
+                } else {
+                    m_Moving = false;
+                }
+
+                // normalize input if it exceeds 1 in combined length:
+                if (m_Input.sqrMagnitude > 1) {
+                    m_Input.Normalize();
+                }   
             } else {
-                m_Moving = false;
-            }
-
-            // normalize input if it exceeds 1 in combined length:
-            if (m_Input.sqrMagnitude > 1) {
-                m_Input.Normalize();
+                speed = m_WalkSpeed;
             }
         }
 

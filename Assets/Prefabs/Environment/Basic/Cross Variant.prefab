@@ -109,6 +109,9 @@ MonoBehaviour:
   DIEDIEDIE: 0
   goingToDie: 0
   dead: 0
+  m_SuckerCube: {fileID: 3519023764646282376, guid: 10610bc4aca258043b7ab146616a9e9b,
+    type: 3}
+  m_Explosion: {fileID: 191186, guid: 079954accd64b32419ec069129c81273, type: 3}
 --- !u!114 &8921969684772405062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,6 +414,7 @@ MonoBehaviour:
   oxygen: 100
   hasOxygen: 1
   masterPlayer: {fileID: 0}
+  sucked: 0
 --- !u!1 &8234136692512433749
 GameObject:
   m_ObjectHideFlags: 0
