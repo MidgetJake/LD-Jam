@@ -14,8 +14,10 @@ namespace Environment {
 		private GameObject topTarget;
 
 		private void Update() {
-			if (Vector3.Distance(masterPlayer.transform.position, topTarget.transform.position) < 3) {
-				sucked = true;
+			if (topTarget) {
+				if (Vector3.Distance(masterPlayer.transform.position, topTarget.transform.position) < 3) {
+					sucked = true;
+				}
 			}
 			
 
