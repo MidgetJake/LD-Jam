@@ -13,6 +13,7 @@ TagManager:
   - Gas
   - ExplosionControl
   - DoorSeal
+  - InitialSect
   layers:
   - Default
   - TransparentFX

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2949281889177920017}
   - component: {fileID: 2949281889177920030}
   - component: {fileID: 2949281889177920031}
+  - component: {fileID: 1005907624}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -81,6 +82,65 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2949281889177920028}
   m_Enabled: 1
+--- !u!114 &1005907624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2949281889177920028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 2949281889177920017}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  stopNaNPropagation: 1
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 1
+  m_ShowCustomSorter: 1
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &2949281890240529531
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +157,6 @@ GameObject:
   - component: {fileID: 2949281890240529521}
   - component: {fileID: 2949281890240529520}
   - component: {fileID: 5104782857372609934}
-  - component: {fileID: 2808100566833705228}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Player
@@ -218,6 +277,9 @@ MonoBehaviour:
   shakeTime: 5
   shakeTick: 5
   deadSectorPlayerDistance: 0
+  canMove: 0
+  doorSealList: []
+  closestSeal: {fileID: 0}
 --- !u!143 &2949281890240529521
 CharacterController:
   m_ObjectHideFlags: 0
@@ -347,33 +409,15 @@ MonoBehaviour:
   maxHealth: 100
   maxOxygen: 100
   playerHealth: 100
-  playerOxygen: 100
+  playerOxygen: 1e+14
   oxygenRegen: 10
   healthRegen: 5
   canRegenOxygen: 0
   canRegenHealth: 1
+  currentSuctionPathNum: 0
+  suckerList: []
+  closestSucker: {fileID: 0}
+  closestDist: 100000
   outOfArea: 0
   enteredSector: 0
   m_Player: {fileID: 2949281890240529531}
---- !u!195 &2808100566833705228
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2949281890240529531}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
