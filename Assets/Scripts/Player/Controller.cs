@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using System.Collections.Generic;
+using Effects;
 using Game;
+using Game.Tools;
 
 namespace Player {
     public class Controller : MonoBehaviour {
@@ -52,6 +54,7 @@ namespace Player {
         public bool canMove;
         public List<GameObject> doorSealList = new List<GameObject>();
         public GameObject closestSeal;
+        public DoorSealer currDoor;
 
         private void Start () {
             m_CharacterController = GetComponent<CharacterController>();
@@ -71,6 +74,7 @@ namespace Player {
                     if (hitObject != null) {
                         hitObject.transform.GetComponent<SpringJoint>().spring = 0;
                         hitObject.transform.GetComponent<SpringJoint>().connectedBody = null;
+                        hitObject.GetComponent<EnergyBeam>().active = false;
                         hitObject = null;
                     } else {
                         if (hit.transform.CompareTag("PickUpable")) {
@@ -78,13 +82,18 @@ namespace Player {
                             hitObject = hit.collider.gameObject;
                             hitObject.transform.GetComponent<SpringJoint>().spring = 10;
                             hitObject.transform.GetComponent<SpringJoint>().connectedBody = m_Camera.transform.GetComponent<Rigidbody>();
+                            hitObject.GetComponent<EnergyBeam>().active = true;
+                            hitObject.GetComponent<EnergyBeam>().playerPosition = transform;
                         }
                     }
                 }
             }
             
             if (Input.GetMouseButtonDown(0)) {
-                if (Physics.Raycast(ray, out hit)) {
+                if (currDoor != null) {
+                    currDoor.door.SetActive(!currDoor.door.active);
+                }
+                /*if (Physics.Raycast(ray, out hit)) {
                     if (hit.transform.CompareTag("DoorSeal")) {
                         Transform door = hit.transform;
                         closestSeal = null;
@@ -131,7 +140,7 @@ namespace Player {
                     } else {
                         Debug.Log("OTHER");
                     }
-                }
+                }*/
             }
 
 

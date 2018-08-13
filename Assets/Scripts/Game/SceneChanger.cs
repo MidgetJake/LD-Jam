@@ -6,10 +6,7 @@ using UnityEngine.UI;
 
 namespace Game {
 	public class SceneChanger : MonoBehaviour {
-		[SerializeField] private Setup m_Setup;
 		[SerializeField] private Animator m_Animator;
-		[SerializeField] private GameObject m_MenuCamera;
-		[SerializeField] private GameObject m_MenuUI;
 		
 		public void StartLevel() {
 			m_Animator.SetTrigger("isLoading");
@@ -19,7 +16,7 @@ namespace Game {
 		private IEnumerator LoadLevel() {
 			yield return new WaitForSeconds(0.3f);
 			print("Init level load");
-			AsyncOperation sceneToLoad = SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+			AsyncOperation sceneToLoad = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
 			sceneToLoad.allowSceneActivation = false;
 			print("Loading!");
 			while (!sceneToLoad.isDone) {
@@ -33,12 +30,10 @@ namespace Game {
 				yield return null;
 			}
 			
-			print("Done");
-			
 			//m_Setup.ReGenerate();
-			m_MenuCamera.SetActive(false);
+			/*m_MenuCamera.SetActive(false);
 			m_MenuUI.SetActive(false);
-			GameObject.FindGameObjectWithTag("Player").SetActive(true);
+			GameObject.FindGameObjectWithTag("Player").SetActive(true);*/
 			m_Animator.SetTrigger("doneLoading");
 		}
 

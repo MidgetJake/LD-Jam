@@ -11,6 +11,8 @@ namespace Environment {
 		public static Transform topParent;
 		public static int sectorCount = 0;
 		public static int maxSectors = 25;
+		public static int boxCount = 0;
+		public static int safeBoxCount = 0;
 
 		public static void Generate() {
 			sectorPoints.Add(Vector3.zero);
