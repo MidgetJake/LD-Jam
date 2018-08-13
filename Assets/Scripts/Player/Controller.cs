@@ -40,7 +40,7 @@ namespace Player {
         private Vector3 m_AirMoveCache;
         private CollisionFlags m_CollisionFlags;
         private Quaternion m_CameraRotation;
-        private bool m_CursorIsLocked = true;
+        public bool m_CursorIsLocked = true;
         private Vector3 m_TargetAngle;
         private Quaternion m_CapturedRotation;
         private GameObject hitObject;
@@ -64,6 +64,8 @@ namespace Player {
             m_CharacterController = GetComponent<CharacterController>();
             m_AudioSource = GetComponent<AudioSource>();
             m_CameraRotation = m_CameraAnchor.localRotation;
+            m_LockCursor = true;
+            Cursor.visible = false;
         }
         
         // Update is called once per frame
