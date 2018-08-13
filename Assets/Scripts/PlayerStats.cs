@@ -3,6 +3,8 @@ using UnityEngine;
 using Player;
 using System.Collections.Generic;
 using Environment;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
 	public float maxHealth = 100f;
@@ -27,6 +29,9 @@ public class PlayerStats : MonoBehaviour {
 	private float m_FloatingSpeed;
 
 	[SerializeField] private GameObject m_Player;
+	[SerializeField] private GameObject DeadScreen;
+	[SerializeField] private GameObject BlockSaved;
+	[SerializeField] private GameObject TimerText;
 
 	private void Update() {
 		if (closestSucker) {
@@ -58,7 +63,7 @@ public class PlayerStats : MonoBehaviour {
 			canRegenHealth = false;
 			canRegenOxygen = false;
 			SetGravity(0);
-			ReduceOxygen(0.25f);
+			ReduceOxygen(0.1f);
 		} else {
 			enteredSector = false;
 			canRegenOxygen = playerOxygen < 100;
@@ -103,7 +108,16 @@ public class PlayerStats : MonoBehaviour {
 
 	public void ReduceOxygen(float val) {
 		if (playerOxygen <= 0) {
-			ReduceHealth(0.5f);
+			if (playerHealth <= 0) {
+				EnvironmentSettings.ActiveGame = false;
+				DeadScreen.active = true;
+				BlockSaved.transform.GetComponent<Text>().text = ""+EnvironmentSettings.boxCount + " Boxes.";
+				TimerText.GetComponent<Text>().text = ""+EnvironmentSettings.OveralTimer + " seconds.";
+				m_Player.GetComponent<Controller>().m_CursorIsLocked = false;
+				Cursor.visible = true;
+			} else {
+				ReduceHealth(0.5f);	
+			}
 		} else {
 			playerOxygen -= val;	
 		}

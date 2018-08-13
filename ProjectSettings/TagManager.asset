@@ -15,6 +15,9 @@ TagManager:
   - DoorSeal
   - InitialSect
   - PickUpable
+  - DeadScreen
+  - TimerTag
+  - BlockSavedTag
   layers:
   - Default
   - TransparentFX

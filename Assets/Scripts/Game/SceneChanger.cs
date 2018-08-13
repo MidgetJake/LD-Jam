@@ -12,6 +12,16 @@ namespace Game {
 			m_Animator.SetTrigger("isLoading");
 			StartCoroutine(LoadLevel());
 		}
+
+		public void MainMenu() {
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+			SceneManager.LoadScene(0);
+		}
+
+		public void Exit() {
+			Application.Quit();
+		}
 		
 		private IEnumerator LoadLevel() {
 			yield return new WaitForSeconds(0.3f);

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Permissions;
+using System.Timers;
 using Environment;
 using Player;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace Game {
 		private void Start() {
 			m_AudioSource = gameObject.GetComponent<AudioSource>();
 			m_PlayerController = m_Player.GetComponent<Controller>();
+			Cursor.visible = false;
+			Cursor.visible = false;
 		}
 
 		public void Update() {
@@ -35,6 +38,10 @@ namespace Game {
 					EnvironmentSettings.BreakSector(DeadSector);
 					DeadSector.InitiateCountDown();
 				}
+			}
+
+			if (EnvironmentSettings.ActiveGame) {
+				EnvironmentSettings.OveralTimer += Time.deltaTime;	
 			}
 		}
 
