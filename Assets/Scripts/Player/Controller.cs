@@ -2,6 +2,7 @@
 using UnityStandardAssets.CrossPlatformInput;
 using System.Collections.Generic;
 using Effects;
+using Environment;
 using Game;
 using Game.Tools;
 
@@ -65,6 +66,7 @@ namespace Player {
         
         // Update is called once per frame
         void Update () {
+            print("Current Score: " + EnvironmentSettings.safeBoxCount + "/" + EnvironmentSettings.boxCount);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 

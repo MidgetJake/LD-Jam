@@ -116,7 +116,7 @@ namespace Environment {
 					StartCoroutine(sect.attachedSector.DestroySector());
 				}
 			}
-			Instantiate(m_SuckerCube, gameObject.transform.position, gameObject.transform.rotation);
+//			Instantiate(m_SuckerCube, gameObject.transform.position, gameObject.transform.rotation);
 		}
 
 		public void AddSection(SectorData newSector) {
