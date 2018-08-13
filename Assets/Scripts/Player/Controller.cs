@@ -70,7 +70,7 @@ namespace Player {
         
         // Update is called once per frame
         void Update () {
-            print("Current Score: " + EnvironmentSettings.safeBoxCount + "/" + EnvironmentSettings.boxCount);
+//            print("Current Score: " + EnvironmentSettings.safeBoxCount + "/" + EnvironmentSettings.boxCount);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -97,7 +97,7 @@ namespace Player {
             
             if (Input.GetMouseButtonDown(0)) {
                 if (currDoor != null) {
-                    currDoor.door.SetActive(!currDoor.door.active);
+                    currDoor.ToggleDoor(!currDoor.door.active);
                 }
             }
 

@@ -538,6 +538,7 @@ MonoBehaviour:
   - {fileID: 1466714319944905711}
   - {fileID: 3063122081315656389}
   isSafe: 1
+  isSealed: 0
   destructionTime: 0
   deadEnds: []
   DIEDIEDIE: 0
@@ -1121,6 +1122,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6366494463503815389, guid: 46bf1c19472cfe748a7fa40729b0fefb,
+        type: 3}
+      propertyPath: m_Sector
+      value: 
+      objectReference: {fileID: 9095848256744666104}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bf1c19472cfe748a7fa40729b0fefb, type: 3}
 --- !u!1001 &4879968385670734205
@@ -1297,6 +1303,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6366494463503815389, guid: 46bf1c19472cfe748a7fa40729b0fefb,
+        type: 3}
+      propertyPath: m_Sector
+      value: 
+      objectReference: {fileID: 9095848256744666104}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bf1c19472cfe748a7fa40729b0fefb, type: 3}
 --- !u!1001 &5487023981715229866
@@ -1468,6 +1479,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 0.0015181
       objectReference: {fileID: 0}
+    - target: {fileID: 6366494463503815389, guid: 46bf1c19472cfe748a7fa40729b0fefb,
+        type: 3}
+      propertyPath: m_Sector
+      value: 
+      objectReference: {fileID: 9095848256744666104}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bf1c19472cfe748a7fa40729b0fefb, type: 3}
 --- !u!1001 &6559966753133434324
@@ -1566,6 +1582,11 @@ PrefabInstance:
       propertyPath: m_DynamicOccludee
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6366494463503815389, guid: 46bf1c19472cfe748a7fa40729b0fefb,
+        type: 3}
+      propertyPath: m_Sector
+      value: 
+      objectReference: {fileID: 9095848256744666104}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bf1c19472cfe748a7fa40729b0fefb, type: 3}
 --- !u!1001 &7581705795280505281

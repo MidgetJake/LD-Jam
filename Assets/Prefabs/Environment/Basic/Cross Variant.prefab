@@ -103,6 +103,7 @@ MonoBehaviour:
   - {fileID: 8240234750501951694}
   - {fileID: 2531820113150073060}
   isSafe: 1
+  isSealed: 0
   destructionTime: 0
   deadEnds: []
   DIEDIEDIE: 0
@@ -765,6 +766,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6366494463503815389, guid: 46bf1c19472cfe748a7fa40729b0fefb,
+        type: 3}
+      propertyPath: m_Sector
+      value: 
+      objectReference: {fileID: 3746338247306369662}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bf1c19472cfe748a7fa40729b0fefb, type: 3}
 --- !u!1001 &2263156145971216749
@@ -1047,6 +1053,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6366494463503815389, guid: 46bf1c19472cfe748a7fa40729b0fefb,
+        type: 3}
+      propertyPath: m_Sector
+      value: 
+      objectReference: {fileID: 3746338247306369662}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bf1c19472cfe748a7fa40729b0fefb, type: 3}
 --- !u!1001 &5857726337352442471
@@ -1223,6 +1234,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6366494463503815389, guid: 46bf1c19472cfe748a7fa40729b0fefb,
+        type: 3}
+      propertyPath: m_Sector
+      value: 
+      objectReference: {fileID: 3746338247306369662}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bf1c19472cfe748a7fa40729b0fefb, type: 3}
 --- !u!1001 &6773131913941459576
@@ -1472,6 +1488,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6366494463503815389, guid: 46bf1c19472cfe748a7fa40729b0fefb,
+        type: 3}
+      propertyPath: m_Sector
+      value: 
+      objectReference: {fileID: 3746338247306369662}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bf1c19472cfe748a7fa40729b0fefb, type: 3}
 --- !u!1001 &7550396779067368867

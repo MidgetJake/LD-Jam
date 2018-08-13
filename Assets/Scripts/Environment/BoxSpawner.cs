@@ -9,7 +9,7 @@ namespace Environment {
 			if(Random.Range(0, 100) > 49) {
 				Instantiate(m_Box, transform.position, transform.rotation);
 				EnvironmentSettings.boxCount++;
-//				EnvironmentSettings.safeBoxCount++;
+				EnvironmentSettings.safeBoxCount++;
 			}
 		}
 	}

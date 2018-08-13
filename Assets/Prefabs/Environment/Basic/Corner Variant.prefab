@@ -432,6 +432,7 @@ MonoBehaviour:
   - {fileID: 6683622569493575180}
   - {fileID: 532961969003481268}
   isSafe: 1
+  isSealed: 0
   destructionTime: 0
   deadEnds: []
   DIEDIEDIE: 0
@@ -531,6 +532,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6366494463503815389, guid: 46bf1c19472cfe748a7fa40729b0fefb,
+        type: 3}
+      propertyPath: m_Sector
+      value: 
+      objectReference: {fileID: 2541696956162404565}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bf1c19472cfe748a7fa40729b0fefb, type: 3}
 --- !u!1001 &2158950538279990745
@@ -922,6 +928,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6366494463503815389, guid: 46bf1c19472cfe748a7fa40729b0fefb,
+        type: 3}
+      propertyPath: m_Sector
+      value: 
+      objectReference: {fileID: 2541696956162404565}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bf1c19472cfe748a7fa40729b0fefb, type: 3}
 --- !u!1001 &8004680873445735956
