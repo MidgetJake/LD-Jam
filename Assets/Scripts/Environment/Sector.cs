@@ -97,7 +97,7 @@ namespace Environment {
 		}
 			
 		public IEnumerator DestroySector() {
-			
+			EnvironmentSettings.deadCount++;
 			foreach (MeshRenderer cornerLight in m_LightList) {
 				cornerLight.GetComponent<Renderer>().material = m_DeadMaterial;
 			}

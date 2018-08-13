@@ -28,9 +28,13 @@ namespace Game {
 				DeathTick = 0;
 				DeathClock = Mathf.Clamp(DeathClock * 0.75f, 20, 100);
 
-				SelectSector();
-				EnvironmentSettings.BreakSector(DeadSector);
-				DeadSector.InitiateCountDown();
+				if (EnvironmentSettings.deadCount == EnvironmentSettings.sectorList.Count) {
+					// Win!!!
+				} else {
+					SelectSector();
+					EnvironmentSettings.BreakSector(DeadSector);
+					DeadSector.InitiateCountDown();
+				}
 			}
 		}
 

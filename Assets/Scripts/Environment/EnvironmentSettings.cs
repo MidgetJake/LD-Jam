@@ -7,6 +7,7 @@ namespace Environment {
 		public static SectorGenerator initialSector;
 		public static List<Sector> sectorList = new List<Sector>();
 		public static List<Vector3> sectorPoints = new List<Vector3>();
+		public static int deadCount = 0;
 		public static Controller player;
 		public static int generationPasses = 3;
 		public static int passCount = 0;
