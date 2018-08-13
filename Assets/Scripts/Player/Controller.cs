@@ -40,6 +40,7 @@ namespace Player {
         private Vector3 m_TargetAngle;
         private Quaternion m_CapturedRotation;
         private GameObject hitObject;
+        private GameObject prevHitObject;
         
         public float gravityMultiplier = 1f;
         public List<Tool> inventory = new List<Tool>();
@@ -61,26 +62,29 @@ namespace Player {
         
         // Update is called once per frame
         void Update () {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            if (Input.GetMouseButtonDown(0)) {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
+            if (CrossPlatformInputManager.GetButtonDown("Use")) {
+                
                 if (Physics.Raycast(ray, out hit)) {
-
-
-                    if (hitObject.CompareTag("PickUpable")) {
-                        hitObject = hit.collider.gameObject;
-                        hitObject.transform.parent = gameObject.transform;
-                    }
-
-                    if (Input.GetMouseButtonUp(0) && hitObject != null) { // This will release the object {
-                        hitObject.transform.parent = null;
+                    if (hitObject != null) {
+                        hitObject.transform.GetComponent<SpringJoint>().spring = 0;
+                        hitObject.transform.GetComponent<SpringJoint>().connectedBody = null;
                         hitObject = null;
+                    } else {
+                        if (hit.transform.CompareTag("PickUpable")) {
+                            prevHitObject = hitObject;
+                            hitObject = hit.collider.gameObject;
+                            hitObject.transform.GetComponent<SpringJoint>().spring = 10;
+                            hitObject.transform.GetComponent<SpringJoint>().connectedBody = m_Camera.transform.GetComponent<Rigidbody>();
+                        }
                     }
-
-
-
+                }
+            }
+            
+            if (Input.GetMouseButtonDown(0)) {
+                if (Physics.Raycast(ray, out hit)) {
                     if (hit.transform.CompareTag("DoorSeal")) {
                         Transform door = hit.transform;
                         closestSeal = null;
