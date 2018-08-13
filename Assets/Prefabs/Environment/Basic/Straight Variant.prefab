@@ -361,6 +361,7 @@ MonoBehaviour:
   - {fileID: 8764154659419797787}
   - {fileID: 1115146432767346703}
   isSafe: 1
+  isSealed: 0
   destructionTime: 0
   deadEnds: []
   DIEDIEDIE: 0
@@ -787,6 +788,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorSeal
       objectReference: {fileID: 0}
+    - target: {fileID: 6366494463503815389, guid: 46bf1c19472cfe748a7fa40729b0fefb,
+        type: 3}
+      propertyPath: m_Sector
+      value: 
+      objectReference: {fileID: 6190347142708848623}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bf1c19472cfe748a7fa40729b0fefb, type: 3}
 --- !u!1001 &7672893905156851561
@@ -953,6 +959,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6366494463503815389, guid: 46bf1c19472cfe748a7fa40729b0fefb,
+        type: 3}
+      propertyPath: m_Sector
+      value: 
+      objectReference: {fileID: 6190347142708848623}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bf1c19472cfe748a7fa40729b0fefb, type: 3}
 --- !u!1001 &8748254991141617045

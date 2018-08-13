@@ -1,13 +1,17 @@
-﻿using Player;
+﻿using System.Collections;
+using Player;
 using UnityEngine;
 
 namespace Environment {
 	public class SectorDoor : MonoBehaviour {
 		[SerializeField] private GameObject m_Door;
+		[SerializeField] private Sector m_Sector;
 
 		public void SealDoor() {
 			m_Door.SetActive(true);
 		}
+
+		
 		
 		private void OnTriggerEnter(Collider other) {
 			if (other.CompareTag("Player")) {

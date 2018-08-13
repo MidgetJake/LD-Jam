@@ -97,6 +97,7 @@ namespace Environment {
 		}
 			
 		public IEnumerator DestroySector() {
+			
 			foreach (MeshRenderer cornerLight in m_LightList) {
 				cornerLight.GetComponent<Renderer>().material = m_DeadMaterial;
 			}
@@ -104,40 +105,38 @@ namespace Environment {
 			isSafe = false;
 			m_GasStats.isSafe = false;
 			m_GasStats.isSealed = false;
+			List<Sector> destroyList = new List<Sector>();
 			foreach (SectorData sect in attachedSectors) {
+				print("==================");
+				if (!sect.attachedSector.isSafe) continue;
 				// Sector - TRANSFORM
 				RaycastHit hit;
 				Vector3 startPoint = transform.position;
+				startPoint.y += 4;
 				Vector3 direction = (sect.attachedSector.transform.position - transform.position).normalized;
-				Debug.DrawLine(transform.position, sect.attachedSector.transform.position, Color.red);
+				print(transform.position);
+				print(sect.attachedSector.transform.position);
+				Debug.DrawLine(startPoint, sect.attachedSector.transform.position, Color.red);
 				
 				if (Physics.Raycast(startPoint, direction, out hit)) {
 					print(hit.collider.tag);
 					if (hit.collider.CompareTag("DoorSeal")) {
-						sect.attachedSector.isSafe = true;
-						sect.attachedSector.isSealed = true;
-						m_GasStats.isSafe = true;
-						m_GasStats.isSealed = true;
+						print("Safe");
 					} else {
-						print("==================");
-						print(sect.attachedSector.tag);
-						sect.attachedSector.isSealed = false;
-						m_GasStats.isSafe = false;
-						m_GasStats.isSealed = false;
-						sect.attachedSector.InitWarning();
+						print("Nope");
+						if (sect.attachedSector.isSafe) {
+							sect.attachedSector.InitWarning();
+							destroyList.Add(sect.attachedSector);
+						}
 
 					}
 				} 
 			}
-
-			yield return new WaitForSeconds(2.5f);
-		
-			foreach (SectorData sect in attachedSectors) {
-				if (!sect.attachedSector.isSealed && sect.attachedSector.isSafe) {
-					StartCoroutine(sect.attachedSector.DestroySector());
-				}
+			
+			yield return new WaitForSeconds(4f);
+			foreach (Sector section in destroyList) {
+				StartCoroutine(section.DestroySector());
 			}
-//			Instantiate(m_SuckerCube, gameObject.transform.position, gameObject.transform.rotation);
 		}
 
 		public void AddSection(SectorData newSector) {
