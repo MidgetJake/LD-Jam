@@ -65,6 +65,11 @@ namespace Environment {
 		}
 
 		private void OnTriggerExit(Collider other) {
+			if (other.CompareTag("PickUpable")) {
+				EnvironmentSettings.safeBoxCount--;
+				return;
+			}
+			
 			PlayerStats player = other.GetComponent<PlayerStats>();
 			if (other.transform.CompareTag("Player") && !player.enteredSector && player) {
 				print("LEFT");
@@ -76,6 +81,11 @@ namespace Environment {
 		
 		private void OnTriggerEnter(Collider other) {
 			if (isSafe) {
+				if (other.CompareTag("PickUpable")) {
+					EnvironmentSettings.safeBoxCount++;
+					return;
+				}
+				
 				PlayerStats player = other.GetComponent<PlayerStats>();
 				if (!other.transform.CompareTag("Player") || !player) return;
 				print("ENTER");
@@ -85,6 +95,12 @@ namespace Environment {
 		}
 		
 		private void OnTriggerStay(Collider other) {
+			if (other.CompareTag("PickUpable") && !isSafe) {
+				EnvironmentSettings.safeBoxCount--;
+				Destroy(other.gameObject);
+				return;
+			}
+			
 			if (!other.transform.CompareTag("Player")) return;
 			PlayerStats player = other.GetComponent<PlayerStats>();
 			

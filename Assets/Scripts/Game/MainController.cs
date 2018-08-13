@@ -13,7 +13,7 @@ namespace Game {
 		
 		public AudioClip warningSound;
 		public List<AudioClip> destructionSound = new List<AudioClip>();
-		public float DeathClock = 10;
+		public float DeathClock = 100;
 		public float DeathTick;
 		public Sector DeadSector;
 
@@ -26,9 +26,18 @@ namespace Game {
 			DeathTick += Time.deltaTime;
 			if (DeathTick > DeathClock) {
 				DeathTick = 0;
+				DeathClock = Mathf.Clamp(DeathClock * 0.75f, 20, 100);
 
-				DeadSector = EnvironmentSettings.sectorList[Random.Range(0, EnvironmentSettings.sectorList.Count)];
+				SelectSector();
+				EnvironmentSettings.BreakSector(DeadSector);
 				DeadSector.InitiateCountDown();
+			}
+		}
+
+		private void SelectSector() {
+			DeadSector = EnvironmentSettings.sectorList[Random.Range(0, EnvironmentSettings.sectorList.Count)];
+			if (DeadSector.dead) {
+				SelectSector();
 			}
 		}
 
