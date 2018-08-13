@@ -25,6 +25,7 @@ namespace Player {
         [SerializeField] private bool m_LockCursor = true;
         [SerializeField] private Vector2 m_RotationRange = new Vector2(90, 361);
         [SerializeField] public bool m_CameraShake = false;
+        [SerializeField] private GameObject m_BreakIndicator;
         
         private CharacterController m_CharacterController;
         private AudioSource m_AudioSource;
@@ -44,6 +45,8 @@ namespace Player {
         private Quaternion m_CapturedRotation;
         private GameObject hitObject;
         private GameObject prevHitObject;
+        private bool m_IsBreaking;
+        private Sector m_BreakingSector;
         
         public float gravityMultiplier = 1f;
         public List<Tool> inventory = new List<Tool>();
@@ -62,7 +65,6 @@ namespace Player {
             m_AudioSource = GetComponent<AudioSource>();
             m_CameraRotation = m_CameraAnchor.localRotation;
         }
-        
         
         // Update is called once per frame
         void Update () {
@@ -95,57 +97,23 @@ namespace Player {
                 if (currDoor != null) {
                     currDoor.door.SetActive(!currDoor.door.active);
                 }
-                /*if (Physics.Raycast(ray, out hit)) {
-                    if (hit.transform.CompareTag("DoorSeal")) {
-                        Transform door = hit.transform;
-                        closestSeal = null;
-
-                        if (Vector3.Distance(gameObject.transform.position, door.transform.position) <= 3) {
-                            doorSealList = new List<GameObject>(GameObject.FindGameObjectsWithTag("DoorSeal"));
-                            foreach (GameObject selectedDoor in doorSealList) {
-                                if (Vector3.Distance(door.transform.position, selectedDoor.transform.position) < 1.5f) {
-                                    closestSeal = selectedDoor;
-                                    break;
-                                }
-                            }
-
-                            bool doorMesh = door.GetComponent<MeshRenderer>().enabled;
-                            bool doorBoxCol = door.GetComponent<BoxCollider>().isTrigger;
-                            bool closestMeshDoor = closestSeal.GetComponent<MeshRenderer>().enabled;
-                            bool closestBoxColDoor = closestSeal.GetComponent<BoxCollider>().isTrigger;
-
-                            if (doorMesh) {
-                                door.GetComponent<MeshRenderer>().enabled = false;
-                                closestSeal.GetComponent<MeshRenderer>().enabled = false;
-                            } else {
-                                door.GetComponent<MeshRenderer>().enabled = true;
-                                closestSeal.GetComponent<MeshRenderer>().enabled = true;
-                            }
-
-                            if (doorBoxCol) {
-                                doorBoxCol = door.GetComponent<BoxCollider>().isTrigger = false;
-                                closestSeal.GetComponent<BoxCollider>().isTrigger = false;
-                            } else {
-                                doorBoxCol = door.GetComponent<BoxCollider>().isTrigger = true;
-                                closestSeal.GetComponent<BoxCollider>().isTrigger = true;
-                            }
-
-
-
-                            print(door.GetComponent<MeshRenderer>().enabled);
-                            print(closestSeal.GetComponent<BoxCollider>().isTrigger);
-                        }
-
-
-
-                        Debug.Log("This is a door");
-                    } else {
-                        Debug.Log("OTHER");
-                    }
-                }*/
             }
 
-
+            if (m_IsBreaking) {
+                m_BreakIndicator.SetActive(true);
+                Vector3 targetPos = m_BreakingSector.transform.position;
+                targetPos.y = 0;
+                Vector3 selfPos = transform.position;
+                selfPos.y = 0;
+                Vector3 lookPos = targetPos - selfPos;
+                Quaternion otherLookPos = Quaternion.LookRotation(lookPos);
+                Vector3 lookingPos = otherLookPos.eulerAngles;
+                lookingPos.y -= 90;
+                m_BreakIndicator.transform.eulerAngles = lookingPos;
+            } else {
+                m_BreakIndicator.SetActive(false);
+            }
+            
             if (!m_Jump) {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
@@ -178,6 +146,11 @@ namespace Player {
             RotateView();
         }
 
+        public void NextBreak(Sector nextBreak) {
+            m_IsBreaking = true;
+            m_BreakingSector = nextBreak;
+        }
+        
         public void SetItemUsable(bool usable, string type, GameObject interactable) {
             if (activeTool != null) {
                 activeTool.SetUsable(usable, type, interactable);

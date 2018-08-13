@@ -27,8 +27,16 @@ namespace Game {
 			if (DeathTick > DeathClock) {
 				DeathTick = 0;
 
-				DeadSector = EnvironmentSettings.sectorList[Random.Range(0, EnvironmentSettings.sectorList.Count)];
+				SelectSector();
+				EnvironmentSettings.BreakSector(DeadSector);
 				DeadSector.InitiateCountDown();
+			}
+		}
+
+		private void SelectSector() {
+			DeadSector = EnvironmentSettings.sectorList[Random.Range(0, EnvironmentSettings.sectorList.Count)];
+			if (DeadSector.dead) {
+				SelectSector();
 			}
 		}
 
