@@ -4,6 +4,7 @@ using System.Timers;
 using Environment;
 using Player;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game {
 	public class MainController : MonoBehaviour {
@@ -17,6 +18,11 @@ namespace Game {
 		public float DeathClock = 100;
 		public float DeathTick;
 		public Sector DeadSector;
+		
+		
+		[SerializeField] private GameObject DeadScreen;
+		[SerializeField] private GameObject BlockSaved;
+		[SerializeField] private GameObject TimerText;
 
 		private void Start() {
 			m_AudioSource = gameObject.GetComponent<AudioSource>();
@@ -32,7 +38,12 @@ namespace Game {
 				DeathClock = Mathf.Clamp(DeathClock * 0.75f, 20, 100);
 
 				if (EnvironmentSettings.deadCount == EnvironmentSettings.sectorList.Count) {
-					// Win!!!
+					EnvironmentSettings.ActiveGame = false;
+					DeadScreen.active = true;
+					BlockSaved.transform.GetComponent<Text>().text = ""+EnvironmentSettings.safeBoxCount + " Boxes.";
+					TimerText.GetComponent<Text>().text = ""+EnvironmentSettings.OveralTimer + " seconds.";
+					m_Player.GetComponent<Controller>().m_CursorIsLocked = false;
+					Cursor.visible = true;
 				} else {
 					SelectSector();
 					EnvironmentSettings.BreakSector(DeadSector);

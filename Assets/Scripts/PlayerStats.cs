@@ -63,7 +63,7 @@ public class PlayerStats : MonoBehaviour {
 			canRegenHealth = false;
 			canRegenOxygen = false;
 			SetGravity(0);
-			ReduceOxygen(0.1f);
+			ReduceOxygen(0.5f);
 		} else {
 			enteredSector = false;
 			canRegenOxygen = playerOxygen < 100;
@@ -111,7 +111,7 @@ public class PlayerStats : MonoBehaviour {
 			if (playerHealth <= 0) {
 				EnvironmentSettings.ActiveGame = false;
 				DeadScreen.active = true;
-				BlockSaved.transform.GetComponent<Text>().text = ""+EnvironmentSettings.boxCount + " Boxes.";
+				BlockSaved.transform.GetComponent<Text>().text = ""+EnvironmentSettings.safeBoxCount + " Boxes.";
 				TimerText.GetComponent<Text>().text = ""+EnvironmentSettings.OveralTimer + " seconds.";
 				m_Player.GetComponent<Controller>().m_CursorIsLocked = false;
 				Cursor.visible = true;

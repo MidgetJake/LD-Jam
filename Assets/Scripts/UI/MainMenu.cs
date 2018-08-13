@@ -7,6 +7,11 @@ public class MainMenu : MonoBehaviour {
 	[SerializeField] private GameObject m_TutorialFirst;
 	[SerializeField] private GameObject m_MainMenu;
 
+	private void Start() {
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+	}
+
 	public void OpenTutorial() {
 		m_Tutorial.SetActive(true);
 		foreach (Transform child in m_Tutorial.transform) {
