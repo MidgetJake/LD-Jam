@@ -70,7 +70,7 @@ namespace Environment {
 				print("LEFT");
 				player.outOfArea = true;
 			} else {
-				player.enteredSector = false;
+					player.enteredSector = false;
 			}
 		}
 		

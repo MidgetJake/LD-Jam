@@ -24,6 +24,7 @@ namespace Environment {
 		
 		public List<SectorData> attachedSectors = new List<SectorData>();
 		public bool isSafe = true;
+		public bool isSealed = false;
 		public float destructionTime;
 		public List<GameObject> deadEnds = new List<GameObject>();
 		
@@ -104,15 +105,35 @@ namespace Environment {
 			m_GasStats.isSafe = false;
 			m_GasStats.isSealed = false;
 			foreach (SectorData sect in attachedSectors) {
-				if (!sect.isSealed && sect.attachedSector.isSafe) {
-					sect.attachedSector.InitWarning();
-				}
+				// Sector - TRANSFORM
+				RaycastHit hit;
+				Vector3 startPoint = transform.position;
+				Vector3 direction = (sect.attachedSector.transform.position - transform.position).normalized;
+				Debug.DrawLine(transform.position, sect.attachedSector.transform.position, Color.red);
+				
+				if (Physics.Raycast(startPoint, direction, out hit)) {
+					print(hit.collider.tag);
+					if (hit.collider.CompareTag("DoorSeal")) {
+						sect.attachedSector.isSafe = true;
+						sect.attachedSector.isSealed = true;
+						m_GasStats.isSafe = true;
+						m_GasStats.isSealed = true;
+					} else {
+						print("==================");
+						print(sect.attachedSector.tag);
+						sect.attachedSector.isSealed = false;
+						m_GasStats.isSafe = false;
+						m_GasStats.isSealed = false;
+						sect.attachedSector.InitWarning();
+
+					}
+				} 
 			}
 
 			yield return new WaitForSeconds(2.5f);
 		
 			foreach (SectorData sect in attachedSectors) {
-				if (!sect.isSealed && sect.attachedSector.isSafe) {
+				if (!sect.attachedSector.isSealed && sect.attachedSector.isSafe) {
 					StartCoroutine(sect.attachedSector.DestroySector());
 				}
 			}

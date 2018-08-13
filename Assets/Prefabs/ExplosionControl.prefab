@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7494974612635576067}
   - component: {fileID: 5853496246908258081}
   - component: {fileID: 3537114618035209335}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ExplosionControl
   m_TagString: ExplosionControl
   m_Icon: {fileID: 0}

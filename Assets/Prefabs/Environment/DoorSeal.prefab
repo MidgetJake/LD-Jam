@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 1111202379123773430}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: DoorSeal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
