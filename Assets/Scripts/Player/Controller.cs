@@ -39,6 +39,7 @@ namespace Player {
         private bool m_CursorIsLocked = true;
         private Vector3 m_TargetAngle;
         private Quaternion m_CapturedRotation;
+        private GameObject hitObject;
         
         public float gravityMultiplier = 1f;
         public List<Tool> inventory = new List<Tool>();
@@ -64,54 +65,72 @@ namespace Player {
             if (Input.GetMouseButtonDown(0)) {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
- 
-                if(Physics.Raycast (ray, out hit)) {
-                    if(hit.transform.CompareTag("DoorSeal")) {
+
+                if (Physics.Raycast(ray, out hit)) {
+
+
+                    if (hitObject.CompareTag("PickUpable")) {
+                        hitObject = hit.collider.gameObject;
+                        hitObject.transform.parent = gameObject.transform;
+                    }
+
+                    if (Input.GetMouseButtonUp(0) && hitObject != null) { // This will release the object {
+                        hitObject.transform.parent = null;
+                        hitObject = null;
+                    }
+
+
+
+                    if (hit.transform.CompareTag("DoorSeal")) {
                         Transform door = hit.transform;
                         closestSeal = null;
 
-                        doorSealList = new List<GameObject>(GameObject.FindGameObjectsWithTag("DoorSeal"));
-                        foreach (GameObject selectedDoor in doorSealList) {
-                            if (Vector3.Distance(door.transform.position, selectedDoor.transform.position) < 1.5f) {
-                                closestSeal = selectedDoor;
-                                break;
+                        if (Vector3.Distance(gameObject.transform.position, door.transform.position) <= 3) {
+                            doorSealList = new List<GameObject>(GameObject.FindGameObjectsWithTag("DoorSeal"));
+                            foreach (GameObject selectedDoor in doorSealList) {
+                                if (Vector3.Distance(door.transform.position, selectedDoor.transform.position) < 1.5f) {
+                                    closestSeal = selectedDoor;
+                                    break;
+                                }
                             }
+
+                            bool doorMesh = door.GetComponent<MeshRenderer>().enabled;
+                            bool doorBoxCol = door.GetComponent<BoxCollider>().isTrigger;
+                            bool closestMeshDoor = closestSeal.GetComponent<MeshRenderer>().enabled;
+                            bool closestBoxColDoor = closestSeal.GetComponent<BoxCollider>().isTrigger;
+
+                            if (doorMesh) {
+                                door.GetComponent<MeshRenderer>().enabled = false;
+                                closestSeal.GetComponent<MeshRenderer>().enabled = false;
+                            } else {
+                                door.GetComponent<MeshRenderer>().enabled = true;
+                                closestSeal.GetComponent<MeshRenderer>().enabled = true;
+                            }
+
+                            if (doorBoxCol) {
+                                doorBoxCol = door.GetComponent<BoxCollider>().isTrigger = false;
+                                closestSeal.GetComponent<BoxCollider>().isTrigger = false;
+                            } else {
+                                doorBoxCol = door.GetComponent<BoxCollider>().isTrigger = true;
+                                closestSeal.GetComponent<BoxCollider>().isTrigger = true;
+                            }
+
+
+
+                            print(door.GetComponent<MeshRenderer>().enabled);
+                            print(closestSeal.GetComponent<BoxCollider>().isTrigger);
                         }
 
-                        bool doorMesh = door.GetComponent<MeshRenderer>().enabled;
-                        bool doorBoxCol = door.GetComponent<BoxCollider>().isTrigger;
-                        bool closestMeshDoor = closestSeal.GetComponent<MeshRenderer>().enabled;
-                        bool closestBoxColDoor = closestSeal.GetComponent<BoxCollider>().isTrigger;
 
-                        if (doorMesh) {
-                            door.GetComponent<MeshRenderer>().enabled = false;
-                            closestSeal.GetComponent<MeshRenderer>().enabled = false;
-                        } else {
-                            door.GetComponent<MeshRenderer>().enabled = true;
-                            closestSeal.GetComponent<MeshRenderer>().enabled = true;
-                        }
 
-                        if (doorBoxCol) {
-                            doorBoxCol = door.GetComponent<BoxCollider>().isTrigger = false;
-                            closestSeal.GetComponent<BoxCollider>().isTrigger = false;
-                        } else {
-                            doorBoxCol = door.GetComponent<BoxCollider>().isTrigger = true;
-                            closestSeal.GetComponent<BoxCollider>().isTrigger = true;
-                        }
-
-                        
-
-                        print(door.GetComponent<MeshRenderer>().enabled);
-                        print(closestSeal.GetComponent<BoxCollider>().isTrigger);
-
-                        
-                        Debug.Log ("This is a door");
+                        Debug.Log("This is a door");
                     } else {
-                        Debug.Log ("OTHER");                
+                        Debug.Log("OTHER");
                     }
                 }
             }
-            
+
+
             if (!m_Jump) {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
